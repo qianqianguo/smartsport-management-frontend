@@ -1,10 +1,11 @@
 // URL地址公共配置，所有用到的url都是放在这里
+import config from './config'
 
-const DOMAIN = 'http://localhost'; // 生产服务器
-
+const PROTOCOL = 'http://';
+const HOST = config.host;
 const PORT = '3000';
 const PROXY = '/proxy';
-const HOST = `${DOMAIN}:${PORT}${PROXY}/`;
+const DOMAIN = `${PROTOCOL}${HOST}:${PORT}${PROXY}`;
 
-export const TEST = `${HOST}test`;
+export const TEST = `${DOMAIN}/test`;
 

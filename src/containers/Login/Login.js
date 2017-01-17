@@ -18,7 +18,6 @@ class Login extends Component {
     event.preventDefault();
     const input = this.refs.username;
     this.props.form.validateFields((err, values) => {
-      console.log(err, values);
       if (!err) {
         localStorage.setItem('smartsport/login/token', JSON.stringify(values));
         this.context.router.push('/');

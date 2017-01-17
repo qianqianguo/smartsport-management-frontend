@@ -16,6 +16,22 @@ import { Test } from 'components';
 )
   
 export default class Home extends Component {
+  handler() {
+    this.props.fetchData({
+      data: {
+        id: 1,
+        account: 2
+      },
+      succ: this.succ,
+      fail: this.fail
+    })
+  }
+  fail() {
+    console.log('fail'); // TODO demo
+  }
+  succ() {
+    console.log('succ'); // TODO demo
+  }
   render() {
     const styles = require('./Home.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应的字符串就行
     const {count, data, fetchState} = this.props; // 所有的数据，即state都是通过redux来管理， 操作state由action来负责
@@ -27,7 +43,7 @@ export default class Home extends Component {
             count={count} // state由redux来管理
             increment={this.props.increment} // 操作state 由action来操作
           />
-          <button onClick={this.props.fetchData}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
+          <button onClick={this.handler.bind(this)}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
         </div>
       </div>
     );

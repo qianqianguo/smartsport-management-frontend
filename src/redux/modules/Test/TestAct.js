@@ -6,21 +6,26 @@ export function increment() {
     type: INCREMENT
   };
 }
-export function fetchData() {
+export function fetchData(obj) {
   return (dispatch, req, getState)=>{
     dispatch({
       type: TEST_FETCH_BEGIN
     });
-    setTimeout(()=>{
-      req.request({
-        url: TEST,
-        method: 'get'
-      }).then(data=>dispatch({
+    req.request({
+      url: TEST,
+      method: 'get'
+    }).then(data=>{
+      obj.succ();
+      dispatch({
         type: TEST_FETCH_SUCC,
         data,
-      })).catch(err=>dispatch({
-        type: TEST_FETCH_FAIL
-      }));
-    }, 2000);
+      });
+    }).catch(err=>{
+      obj.fail();
+      dispatch({
+        type: TEST_FETCH_FAIL,
+        err
+      });
+    });
   };
 }

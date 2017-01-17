@@ -15,7 +15,6 @@ if (__DEVELOPMENT__) {
 // 用于加载assets样式图片等资源文件
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))
-  .development(__DEVELOPMENT__)
   .server(rootDir, function() {
     require('./server');
   }

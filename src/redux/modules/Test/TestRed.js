@@ -1,5 +1,10 @@
-import initialState from './TestInitState'
 import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes'
+
+const initialState = {
+  count: 0,
+  data: {},
+  fetchState: ''
+};
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -23,7 +28,7 @@ export default function reducer(state = initialState, action = {}) {
   case TEST_FETCH_FAIL:
     return {
       ...state,
-      fetchState: '请求失败'
+      fetchState: action.err
     }
   default:
     return state;

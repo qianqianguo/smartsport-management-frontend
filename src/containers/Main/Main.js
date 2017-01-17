@@ -13,7 +13,6 @@ import config from 'constants/config';
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
-    // return fetch('http://localhost:3000/proxy/test');
     return Promise.all(promises);
   }
 }])
