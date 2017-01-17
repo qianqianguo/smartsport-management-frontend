@@ -13,14 +13,7 @@ import config from 'constants/config';
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
-    // TODO 演示进入页面前发请求的demo，直至promise结束后才会进入页面
-    // const ft = fetch('http://localhost:3000/proxy/test').then(res => alert(1)).catch(err=>alert(2))
-    // const ft = new Promise((res, rej)=>{
-    //   setTimeout(()=>{
-    //     rej(1111)
-    //   }, 4000)
-    // })
-    // promises.push(ft)
+    // return fetch('http://localhost:3000/proxy/test');
     return Promise.all(promises);
   }
 }])
@@ -36,6 +29,10 @@ export default class App extends Component {
     const last = routes.indexOf(route) === routes.length - 1;
     return last ? <span>{route.breadcrumbName}</span> : <Link to={paths.join('/')}>{route.breadcrumbName}</Link>;
   }
+  logoutHandler() {
+    localStorage.removeItem('smartsport/login/token');
+    this.context.router.push('/login');
+  }
   // 下拉菜单
   getMenu() {
     return (
@@ -44,7 +41,7 @@ export default class App extends Component {
           <a href="#">修改密码</a>
         </Menu.Item>
         <Menu.Item key="1">
-          <a href="#">退出</a>
+          <div onClick={this.logoutHandler.bind(this)}>退出</div>
         </Menu.Item>
       </Menu>
     );

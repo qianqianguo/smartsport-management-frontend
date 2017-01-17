@@ -10,7 +10,7 @@ const loggerMiddleware = createLogger({
 })
 
 export default function createStore(history, client, data) {
-  // Sync dispatched route actions to the history
+  // 同步发送路由操作到历史记录
   const reduxRouterMiddleware = routerMiddleware(history);
 
   const middleware = [createMiddleware(client), reduxRouterMiddleware, thunk]; // TODO 不打印action

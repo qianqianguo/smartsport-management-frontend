@@ -1,21 +1,18 @@
-#!/usr/bin/env node
-require('../server.babel'); // babel registration (runtime transpilation for node)
+require('../server.babel'); // 注册babel，node运行时提供js转换
 var path = require('path');
 var rootDir = path.resolve(__dirname, '..');
+
 /**
- * Define isomorphic constants.
-  同构的设置
+  同构设置
  */
-global.__CLIENT__ = false; // 除了在app.js自己加进去的，其他找不到用的地方
-global.__SERVER__ = true; // 查找不到用的地方
-global.__DISABLE_SSR__ = false; // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING // server.js有用到
-global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production'; // create.js热部署，server.js刷新页面，还有这个文件用于同构
+ // 设置开发环境，create.js热部署，server.js不缓存webpack
+global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 if (__DEVELOPMENT__) {
   if (!require('piping')({hook: true, ignore: /(\/\.|~$|\.json|\.scss$)/i})) {
     return;
   }
 }
-// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
+// 用于加载assets样式图片等资源文件
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))
   .development(__DEVELOPMENT__)

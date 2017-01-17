@@ -58,6 +58,7 @@
     "brace-style": 0, #不允许使用～
     "no-trailing-spaces": 0, #允许空行里面有空格（自动缩进）
     "vars-on-top": 0, #var要再文档最顶声明
+    "no-else-return": 0, #else里面不能用return
     
   },
   "plugins": [
@@ -71,9 +72,6 @@
   },
   "globals": {
     "__DEVELOPMENT__": true,
-    "__CLIENT__": true,
-    "__SERVER__": true,
-    "__DISABLE_SSR__": true,
     "socket": true,
     "webpackIsomorphicTools": true
   }
