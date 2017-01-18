@@ -35,6 +35,7 @@ const initialState = {
   ],
   fetchState: '',
   searchText: '',
+  limit: 10,
   filterDropdownVisible: false,
 };
 export default initialState;

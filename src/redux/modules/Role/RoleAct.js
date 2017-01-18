@@ -5,6 +5,7 @@ import {
   SEARCH_ROLE_TEXT,
 } from 'constants/actionTypes';
 import {ROLELIST} from 'constants/urls';
+
 export function fetchRole() {
   return (dispatch, req) => {
     dispatch({
@@ -12,7 +13,7 @@ export function fetchRole() {
     });
     req.request({
       url: ROLELIST,
-      method: 'get',
+      method: 'post',
     }).then(data=>{
       dispatch({
         type: ROLE_FETCH_SUCC,

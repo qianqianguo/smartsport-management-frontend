@@ -13,7 +13,7 @@ import {
 } from 'constants/actionTypes';
 import {ACCOUNTLIST} from 'constants/urls';
 
-export function fetchAccount(obj = {accountId: '', name: ''}) {
+export function fetchAccount(obj = {accountId: '', name: '', limit: 10, skip: 0}) {
   return (dispatch, req) => {
     dispatch({
       type: ACCOUNT_FETCH_BEGIN,
@@ -24,6 +24,8 @@ export function fetchAccount(obj = {accountId: '', name: ''}) {
       body: {
         accountId: obj.accountId,
         name: obj.name,
+        limit: obj.limit,
+        skip: obj.skip,
       },
     }).then(data=>dispatch({
       type: ACCOUNT_FETCH_SUCC,

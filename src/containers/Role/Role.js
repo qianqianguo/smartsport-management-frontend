@@ -40,17 +40,16 @@ export default class Role extends Component {
       total: data.length,
       showQuickJumper: true,
       showSizeChanger: true,
-      onChange: (current) => {
-        console.log('Current: ', current);
-      }
+      onChange: (current, filters) => {}
     };
     const columns = [
       {
         title: '角色',
-        dataIndex: 'role',
-        key: 'role'
+        dataIndex: 'name',
+        key: 'name',
       }, {
         title: '操作',
+        key: '_id',
         render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, record)}>编辑</Button>,
       }
     ];
@@ -73,7 +72,7 @@ export default class Role extends Component {
         <div className="add-role">
           <Button type="primary" className="fr" onClick={this.onAddRole.bind(this)}>添加角色</Button>
         </div>
-        <Table columns={columns} dataSource={data} pagination={pagination}/>
+        <Table columns={columns} dataSource={data} pagination={false}/>
       </div>
     );
   }

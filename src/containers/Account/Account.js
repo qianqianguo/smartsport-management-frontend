@@ -9,6 +9,7 @@ import {Table, Input, Button} from 'antd';
       data: state.accountReducer.data,
       searchAccountText: state.accountReducer.searchAccountText,
       searchNameText: state.accountReducer.searchNameText,
+      limit: state.accountReducer.limit,
     }
   ), {fetchAccount, onSearchAccountText, onSearchNameText}
 )
@@ -37,35 +38,43 @@ export default class Account extends Component {
 
   render() {
     require('./Account.css');
-    const {searchAccountText, searchNameText, data} = this.props;
+    const {searchAccountText, searchNameText, data, limit} = this.props;
+    console.log('data', data);
     const columns = [
       {
         title: '管理员账户',
-        dataIndex: 'account',
-        key: 'account'
+        dataIndex: 'accountId',
+        key: 'accountId',
       }, {
         title: '姓名',
         dataIndex: 'name',
-        key: 'name'
+        key: 'name',
       }, {
         title: '角色',
-        dataIndex: 'address',
-        key: 'address'
+        dataIndex: 'role',
+        key: 'role',
       }, {
         title: '状态',
         render: (text, record, index) =><span>{text.status ? ' 启用 ' : ' 停用 '}</span>,
-        key: 'status'
+        key: 'status',
       }, {
         title: '操作',
         render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, text)}>编辑</Button>,
+        key: '_id',
       }
     ];
     const pagination = {
       total: data.length,
       showQuickJumper: true,
       showSizeChanger: true,
-      onChange: (current) => {
-        console.log('Current: ', current);
+      onChange: (current, pageSize) => {
+        let skip = (current - 1) * limit;
+        this.props.fetchAccount({limit: limit, skip: skip});
+        console.log('skip: ', skip);
+      },
+      onShowSizeChange: (current, size) => {
+        let skip = (current - 1) * size;
+        this.props.fetchAccount({limit: size, skip: skip});
       }
     };
     return (
