@@ -4,10 +4,16 @@ import {reducer as reduxAsyncConnect} from 'redux-async-connect';
 
 import test from './Test/TestRed';
 import login from './Login/LoginRed';
+import permissionsReducer from './Permissions/permissionsReducer';
+import roleReducer from './Role/RoleReducer';
+import accountReducer from './Account/AccountReducer';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   test,
   login,
+  permissionsReducer,
+  roleReducer,
+  accountReducer,
 });

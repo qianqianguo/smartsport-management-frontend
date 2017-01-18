@@ -1,0 +1,12 @@
+.search-box{padding: 20px 30px}
+.search-input{
+    display: inline-block;
+    border: none;
+    background-color: gainsboro;
+    width: 60%;
+    margin: 0 20px;
+}
+.add-role{height: 60px; padding: 10px;}
+.highlight{color: #00A854}
+.fr{float: right}
+.ant-table table th, .ant-table table td{text-align: center}

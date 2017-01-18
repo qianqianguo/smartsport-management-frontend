@@ -1,0 +1,28 @@
+.permissions-text{margin: 10px}
+.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-header{border: 0}
+.ant-collapse-content{padding: 0 36px;}
+
+
+
+
+
+
+
+
+
+/*@font-face {
+  font-family: 'iconfont';
+  src: url('iconfont.eot');
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+  url('iconfont.woff') format('woff'),
+  url('iconfont.ttf') format('truetype'),
+  url('iconfont.svg#iconfont') format('svg');
+}*/
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow:before{
+  /*font-family:"iconfont" !important;*/
+  /*content: "";
+  background-image: url('https://t.alipayobjects.com/images/T1QUBfXo4fXXXXXXXX.png');
+  background-size: contain;
+  */
+}
+.iconfont{font-family:"iconfont" !important;}

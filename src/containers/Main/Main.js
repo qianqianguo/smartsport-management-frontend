@@ -60,7 +60,7 @@ export default class App extends Component {
   }
   clickHandler() {
     this.context.router.push({
-      pathname: '/test',
+      pathname: '/role',
       query: {
         qsparam: 'adf'
       },
@@ -88,29 +88,25 @@ export default class App extends Component {
               </Dropdown>
             </div>
           </div>
-          <Menu mode="inline" className={styles.siderMenu} defaultOpenKeys={['system']} // 默认展开的菜单组
-            selectedKeys={[this.props.routes[this.props.routes.length - 1].name]}>
-            <SubMenu key="system" title={< span > 系统管理 < /span>}>
-              <Menu.Item key="home" className={styles.siderMenuItem}>
-                <IndexLink to={{
-                  pathname: '/',
-                  state: {
-                    parmas: 1
-                  },
-                  query: {
-                    id: 1
-                  }
-                }}>
+          <Menu
+            mode="inline"
+            className={styles.siderMenu}
+            defaultOpenKeys={['system']} // 默认展开的菜单组
+            selectedKeys={[this.props.routes[this.props.routes.length - 1].name]}
+          >
+            <SubMenu key="system" title={<span>系统管理</span>}>
+              <Menu.Item key="account" className={styles.siderMenuItem} >
+                <IndexLink to={{ pathname: '/account', state: {parmas: 1}, query: {id: 1} }}>
                   <span>账号管理</span>
                 </IndexLink>
               </Menu.Item>
-              <Menu.Item key="test" className={styles.siderMenuItem}>
-                <div onClick={:: this.clickHandler}>
-                  <div >Survey</div>
+              <Menu.Item key="role" className={styles.siderMenuItem}>
+                <div onClick={::this.clickHandler}>
+                  <div >角色管理</div>
                 </div>
               </Menu.Item>
-              <Menu.Item className={styles.siderMenuItem} key="3">
-                <Link to="/none">权限管理</Link>
+              <Menu.Item className={styles.siderMenuItem} key="permissions">
+                <Link to="/permissions">权限管理</Link>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="4">
