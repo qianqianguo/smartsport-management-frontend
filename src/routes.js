@@ -10,7 +10,7 @@ import {
 export default (store) => {
   // 页面刷新时候，进行判断是否已经登陆，没登陆跳转到登陆页
   const requireLogin = (nextState, replace, next) => {
-    const token = window.localStorage.getItem('smartsport/login/token')
+    const token = window.localStorage.getItem('smartsport/token')
     if (!token) {
       replace('/login');
     }

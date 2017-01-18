@@ -1,34 +1,22 @@
-import { INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL } from 'constants/actionTypes';
+import {LOGIN_BEGIN, LOGIN_SUCC, LOGIN_FAIL} from 'constants/actionTypes';
 
 const initialState = {
-  count: 0,
-  data: {},
-  fetchState: ''
+  loginState: ''
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-  case INCREMENT:
-    const {count} = state;
+  case LOGIN_BEGIN:
     return {
-      ...state,
-      count: count + 1
+      loginState: '登陆中'
     };
-  case TEST_FETCH_BEGIN:
+  case LOGIN_SUCC:
     return {
-      ...state,
-      fetchState: '发起请求'
+      loginState: ''
     };
-  case TEST_FETCH_SUCC:
+  case LOGIN_FAIL:
     return {
-      ...state,
-      fetchState: '请求成功',
-      data: action.data
-    };
-  case TEST_FETCH_FAIL:
-    return {
-      ...state,
-      fetchState: '请求失败'
+      loginState: action.err
     };
   default:
     return state;

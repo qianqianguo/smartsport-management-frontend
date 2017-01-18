@@ -33,6 +33,38 @@ app.use('/proxy', (req, res) => {
     });
     return;
   }
+  if (req.url.includes('/api/mgmt_account/login')) {
+    res.json({
+      "data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbSI6Im1hbmFnZW1lbnQtdXNlciIsImlhdCI6MTQ4NDYxODgyNiwiZXhwIjoxNDg0NjI2MDI2LCJzdWIiOiI1ODc4ODk0MDAzMjlmMzFlMjNkOWVmMjQiLCJqdGkiOiI1ODdkN2M0YTA4YzdhZGU5MTZkMjQzMDIifQ.wlV9u9diWGZDqV2r5Uk0GBRz4bkXtn-7-u0qHSqx-W4",
+        "user": {
+          "_id": "587889400329f31e23d9ef24",
+          "accountId": "tester",
+          "name": "tester",
+          "status": 1,
+          "role": "daddy",
+          "__v": 0
+        }
+      },
+      "status": {
+        "code": 0,
+        "msg": "request success"
+      }
+    });
+    return;
+  }
+  if (req.url.includes('/api/mgmt_account/logout')) {
+    res.json({
+      "data": {
+        "success": true
+      },
+      "status": {
+        "code": 1,
+        "msg": "request success"
+      }
+    });
+    return;
+  }
   const url = targetUrl + req.url;
   req.pipe(request(url)).pipe(res);
 });

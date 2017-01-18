@@ -67,3 +67,9 @@ export function createValidator(rules) {
     return errors;
   };
 }
+export const ACCOUNT = /^[A-Za-z0-9]{4,16}$/;
+export const ACCOUNT_TIP = '字母、数字组合，4-16位';
+export const PASSWORD = /^(?!^\d+$)(?!^[a-zA-Z]+$)(?!^[~!@#$%^&*()]+$)[A-Za-z0-9~!@#$%^&*()]{6,16}$/;
+export const PASSWORD_TIP = '字母、英文、特殊字符任意两种或以上组合, 6-16位';
+
+

@@ -18,8 +18,10 @@ export default class Request {
       return new Promise(() => {});
     }
     lastRequestParam.push(obj);
+    const Authorization = localStorage.getItem('smartsport/token') || '';
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization
     };
     const silent = obj.silent;
     let timeOut;
