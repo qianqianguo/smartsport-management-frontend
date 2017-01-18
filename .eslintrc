@@ -59,6 +59,7 @@
     "no-trailing-spaces": 0, #允许空行里面有空格（自动缩进）
     "vars-on-top": 0, #var要再文档最顶声明
     "no-else-return": 0, #else里面不能用return
+    "no-alert": 0, #不允许使用alert
     
   },
   "plugins": [

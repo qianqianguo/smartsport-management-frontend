@@ -1,5 +1,8 @@
 // 用到的所有action type都放在这里
 
+// export const _BEGIN = '_BEGIN';
+// export const _SUCC = '_SUCC';
+// export const _FAIL = '_FAIL';
 // Demo
 export const INCREMENT = 'INCREMENT';
 export const TEST_FETCH_BEGIN = 'TEST_FETCH_BEGIN';
@@ -34,3 +37,7 @@ export const SEARCH_ACCOUNT_FAIL = 'SEARCH_ACCOUNT_FAIL';
 export const SEARCH_NAME_BEGIN = 'SEARCH_NAME_BEGIN';
 export const SEARCH_NAME_SUCC = 'SEARCH_NAME_SUCC';
 export const SEARCH_NAME_FAIL = 'SEARCH_NAME_FAIL';
+// 修改密码
+export const CHANGE_PWD_BEGIN = 'CHANGE_PWD_BEGIN';
+export const CHANGE_PWD_SUCC = 'CHANGE_PWD_SUCC';
+export const CHANGE_PWD_FAIL = 'CHANGE_PWD_FAIL';

@@ -40,7 +40,7 @@ export default class App extends Component {
   logoutHandler() {
     this.props.logout({
       succ: this.logoutSucc.bind(this)
-    })
+    });
   }
   logoutSucc() {
     this.context.router.push('/login');
@@ -50,7 +50,7 @@ export default class App extends Component {
     return (
       <Menu>
         <Menu.Item key="0">
-          <a href="#">修改密码</a>
+          <Link to={'/change-pwd'}>修改密码</Link>
         </Menu.Item>
         <Menu.Item key="1">
           <div onClick={this.logoutHandler.bind(this)}>退出</div>
@@ -72,14 +72,13 @@ export default class App extends Component {
   render() {
     const styles = require('./Main.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应
     const img1 = require('img/logo.png'); // 下面两个img展现两个img的使用方式
-    const img2 = 'https://t.alipayobjects.com/images/T1QUBfXo4fXXXXXXXX.png'; // 下面两个img展现两个img的使用方式
     return (
       <Layout className={styles.layout}>
         <Helmet {...config.app.head}/>
         <Sider width={200} className={styles.sider}>
           <div className={styles.siderTop}>
-            <img src={img1}/>
-            <div>
+            <img src={img1} className={`${styles.logo} img-circle`}/>
+            <div className={styles.dropdown}>
               <Dropdown overlay={this.getMenu()} trigger={['click']}>
                 <a className="ant-dropdown-link" href="#">
                   <Icon type="user"/>

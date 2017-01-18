@@ -27,10 +27,8 @@ export default class Home extends Component {
     })
   }
   fail() {
-    console.log('fail'); // TODO demo
   }
   succ() {
-    console.log('succ'); // TODO demo
   }
   render() {
     const styles = require('./Home.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应的字符串就行

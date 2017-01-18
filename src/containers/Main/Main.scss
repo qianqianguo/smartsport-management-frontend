@@ -19,6 +19,8 @@ a:hover, a:focus{
 .siderTop {
   background-color: rgb(241,241,241);
   margin-bottom: 20px;
+  position: relative;
+  height: 180px;
 }
 .siderMenu{
   height: 100%;
@@ -26,4 +28,16 @@ a:hover, a:focus{
 }
 .siderMenuItem{
   background-color: rgb(241,241,241);
+}
+.logo {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 20px);
+}
+.dropdown {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 140px);
 }

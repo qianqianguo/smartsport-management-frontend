@@ -30,6 +30,7 @@ export default (store) => {
         <Route path='test' name='test' breadcrumbName='Test' component={Home}/>
       </Route>
       <Route path='/login' component={Login}/>
+      <Route path='/change-pwd' component={Login}/>
       <Route path='*' component={NotFound} status={404} />
     </Route>
   );

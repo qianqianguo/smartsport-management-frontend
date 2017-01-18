@@ -2,12 +2,12 @@ import { createStore as _createStore, applyMiddleware } from 'redux';
 import createMiddleware from './middleware/clientMiddleware';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger'
+import createLogger from 'redux-logger';
 
 const loggerMiddleware = createLogger({
   level: 'info',
   collapsed: true
-})
+});
 
 export default function createStore(history, client, data) {
   // 同步发送路由操作到历史记录
