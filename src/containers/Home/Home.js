@@ -38,11 +38,11 @@ export default class Home extends Component {
         <Helmet title="首页"/>
         <div className={styles.counterContainer}>
           <h1>智慧体育管理后台</h1>
-          {/* <Test
+          <Test
             count={count} // state由redux来管理
             increment={this.props.increment} // 操作state 由action来操作
           />
-          <button onClick={this.handler.bind(this)}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button> */}
+          <button onClick={this.handler.bind(this)}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
         </div>
       </div>
     );

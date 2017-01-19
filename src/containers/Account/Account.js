@@ -23,7 +23,7 @@ export default class Account extends Component {
 
   onEditor(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/editAccount',
       state: {
         ...record,
       }
@@ -32,7 +32,7 @@ export default class Account extends Component {
 
   onAddAccount(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/addAccount',
     });
   }
 

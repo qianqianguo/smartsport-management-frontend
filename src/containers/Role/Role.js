@@ -21,7 +21,7 @@ export default class Role extends Component {
 
   onEditor(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/editRole',
       state: {
         ...record,
       }
@@ -30,7 +30,7 @@ export default class Role extends Component {
 
   onAddRole(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/addRole',
     });
   }
 

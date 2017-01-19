@@ -8,6 +8,12 @@ import permissionsReducer from './Permissions/permissionsReducer';
 import roleReducer from './Role/RoleReducer';
 import accountReducer from './Account/AccountReducer';
 
+import addAccount from './ManageAccount/AddAccountReducer';
+import editAccount from './ManageAccount/EditAccountReducer';
+import addRole from './ManageRole/AddRoleReducer';
+import editRole from './ManageRole/EditRoleReducer';
+import fetchRole from './ManageRole/FetchRoleReducer';
+
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
@@ -16,4 +22,9 @@ export default combineReducers({
   permissionsReducer,
   roleReducer,
   accountReducer,
+  addAccount,
+  editAccount,
+  addRole,
+  editRole,
+  fetchRole,
 });
