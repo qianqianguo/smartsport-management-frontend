@@ -9,6 +9,17 @@ import {
     Role,
     Permissions,
   } from 'containers';
+// 两种跳转方式
+// to={{ pathname: '/account', state: {parmas: 1}, query: {id: 1} }}
+// this.context.router.push({
+//   pathname: '/role',
+//   query: {
+//     qsparam: 'adf'
+//   },
+//   state: {
+//     id: 11
+//   }
+// });
 
 export default (store) => {
   // 页面刷新时候，进行判断是否已经登陆，没登陆跳转到登陆页
@@ -22,12 +33,11 @@ export default (store) => {
 
   return (
     <Route>
-      <Route onEnter={requireLogin} path='/' name='home' breadcrumbName='Home' component={Main}>
+      <Route onEnter={requireLogin} path='/' name='home' breadcrumbName='首页' component={Main}>
         <IndexRoute name='home' component={Home}/>
-        <Route path='account' name='account' breadcrumbName='Account' component={Account}/>
-        <Route path='role' name='role' breadcrumbName='Role' component={Role}/>
-        <Route path='permissions' name='permissions' breadcrumbName='Permissions' component={Permissions}/>
-        <Route path='test' name='test' breadcrumbName='Test' component={Home}/>
+        <Route path='account' name='account' breadcrumbName='账号管理' component={Account}/>
+        <Route path='role' name='role' breadcrumbName='角色管理' component={Role}/>
+        <Route path='permissions' name='permissions' breadcrumbName='权限管理' component={Permissions}/>
       </Route>
       <Route path='/login' component={Login}/>
       <Route path='/change-pwd' component={Login}/>

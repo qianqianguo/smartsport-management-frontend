@@ -59,15 +59,7 @@ export default class App extends Component {
     );
   }
   clickHandler() {
-    this.context.router.push({
-      pathname: '/role',
-      query: {
-        qsparam: 'adf'
-      },
-      state: {
-        id: 11
-      }
-    });
+    this.context.router.push('/role');
   }
   render() {
     const styles = require('./Main.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应
@@ -95,7 +87,7 @@ export default class App extends Component {
           >
             <SubMenu key="system" title={<span>系统管理</span>}>
               <Menu.Item key="account" className={styles.siderMenuItem} >
-                <IndexLink to={{ pathname: '/account', state: {parmas: 1}, query: {id: 1} }}>
+                <IndexLink to={'/account'}>
                   <span>账号管理</span>
                 </IndexLink>
               </Menu.Item>

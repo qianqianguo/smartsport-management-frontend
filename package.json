@@ -40,7 +40,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 8080,
-        "APIPORT": 3030
+        "APIPORT": 3000
       }
     },
     "start-dev": {
@@ -49,7 +49,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "APIPORT": 3030
+        "APIPORT": 3000
       }
     },
     "watch-client": {
@@ -58,7 +58,7 @@
         "UV_THREADPOOL_SIZE": 100,
         "NODE_PATH": "./src",
         "PORT": 3000,
-        "APIPORT": 3030
+        "APIPORT": 3000
       }
     },
     "build": {

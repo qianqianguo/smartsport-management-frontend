@@ -35,13 +35,14 @@ export default class Home extends Component {
     const {count, data, fetchState} = this.props; // 所有的数据，即state都是通过redux来管理， 操作state由action来负责
     return (
       <div>
-        <Helmet title="Home"/>
+        <Helmet title="首页"/>
         <div className={styles.counterContainer}>
-          <Test
+          <h1>智慧体育管理后台</h1>
+          {/* <Test
             count={count} // state由redux来管理
             increment={this.props.increment} // 操作state 由action来操作
           />
-          <button onClick={this.handler.bind(this)}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
+          <button onClick={this.handler.bind(this)}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button> */}
         </div>
       </div>
     );

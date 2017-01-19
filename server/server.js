@@ -24,10 +24,11 @@ const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
 // 代理转发，解决跨域问题
 app.use('/proxy', (req, res) => {
   // TODO 用于前端开发模拟数据使用
-  if ( analogData(req, res)) {
+  if ( config.apiHost === 'localhost' && analogData(req, res)) {
     return;
   }
   const url = targetUrl + req.url;
+  console.log(url)
   req.pipe(request(url)).pipe(res);
 });
 // 同构

@@ -1,13 +1,76 @@
 .login-form {
   width: 300px;
-  position:absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
 }
+
 .login-form-forgot {
   float: right;
 }
+
 .login-form-button {
   width: 100%;
+}
+
+.login-bg {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: -webkit-radial-gradient(#63eca7, #2ec87b);
+  /* Safari 5.1 - 6.0 */
+  background: -o-radial-gradient(#63eca7, #2ec87b);
+  /* Opera 11.6 - 12.0 */
+  background: -moz-radial-gradient(#63eca7, #2ec87b);
+  /* Firefox 3.6 - 15 */
+  background: radial-gradient(#63eca7, #2ec87b);
+  /* 标准的语法 */
+}
+
+.login-bg::before {
+  content: '';
+  width: 453px;
+  height: 600px;
+  background-image: url('../../img/login-bg.png');
+  background-repeat: no-repeat;
+  position: absolute;
+  background-position: 0 0;
+  background-size: 100%;
+  top: -428px;
+  left: -134px;
+}
+
+.login-bottom-imge {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+}
+
+.login-bottom-imge::before {
+  content: '';
+  width: 312px;
+  height: 240px;
+  background-image: url('../../img/login-bg.png');
+  background-repeat: no-repeat;
+  position: absolute;
+  background-position: 0px 100%;
+  background-size: 130.6% 325%;
+  top: -240px;
+  left: -312px;
+}
+
+.login-info {
+  position: absolute;
+  height: 30px;
+  top: 100%;
+  margin-top: -30px;
+  width: 100%;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
 }
