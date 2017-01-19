@@ -26,6 +26,7 @@ export default function roleReducer(state = initialState, action = {}) {
     return {
       ...state,
       fetchState: '发起失败',
+      errMsg: action.errMsg,
     };
   case SEARCH_ROLE_BEGIN:
     return {

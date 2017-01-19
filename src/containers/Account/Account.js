@@ -39,7 +39,6 @@ export default class Account extends Component {
   render() {
     require('./Account.css');
     const {searchAccountText, searchNameText, data, limit} = this.props;
-    console.log('data', data);
     const columns = [
       {
         title: '管理员账户',

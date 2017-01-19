@@ -13,6 +13,7 @@ const customPanelStyle = {
     {
       data: state.permissionsReducer.data,
       fetchState: state.permissionsReducer.fetchState,
+      errMsg: state.permissionsReducer.errMsg,
     }
   ), { fetchPermissions }
 )
@@ -21,9 +22,10 @@ export default class Permissions extends Component {
     this.props.fetchPermissions();
   }
   render() {
-    const {data, fetchState} = this.props;
+    const {data, fetchState, errMsg} = this.props;
     return (
       <div>
+        {errMsg ? <div>{errMsg}</div> : ''}
         <Collapse defaultActiveKey={['1']} bordered={false}>
           {
             data.map((item, index)=>(

@@ -14,6 +14,7 @@ export function fetchPermissions() {
       data
     })).catch(err=>dispatch({
       type: PERMISSIONS_FETCH_FAIL,
+      errMsg: err,
     }));
   };
 }

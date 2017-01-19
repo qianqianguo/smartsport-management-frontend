@@ -4,7 +4,7 @@ const data = [
     data: {
       status: {
         code: 0,
-        msg: 'request fail'
+        msg: 'request success'
       },
       data: [
         {
@@ -28,7 +28,7 @@ const data = [
     data: {
       status: {
         code: 0,
-        msg: 'request fail'
+        msg: 'request success'
       },
       data: [
         {
@@ -91,7 +91,7 @@ const data = [
     data: {
       status: {
         code: 0,
-        msg: 'request fail'
+        msg: 'request success'
       },
       data: [
         {

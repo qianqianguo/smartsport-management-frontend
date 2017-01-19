@@ -13,7 +13,7 @@ export function fetchRole() {
     });
     req.request({
       url: ROLELIST,
-      method: 'post',
+      method: 'get',
     }).then(data=>{
       dispatch({
         type: ROLE_FETCH_SUCC,
@@ -22,6 +22,7 @@ export function fetchRole() {
     }).catch(err=>{
       dispatch({
         type: ROLE_FETCH_FAIL,
+        errMsg: err,
       });
     });
   };

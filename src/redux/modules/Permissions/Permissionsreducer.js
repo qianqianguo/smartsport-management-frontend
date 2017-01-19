@@ -18,6 +18,7 @@ export default function permissionsReducer(state = initialState, action = {}) {
     return {
       ...state,
       fetchState: '发起失败',
+      errMsg: action.errMsg,
     };
   default:
     return state;
