@@ -9,10 +9,12 @@ export function fetchPermissions() {
     req.request({
       url: PERMISSIONSTLIST,
       method: 'get',
-    }).then(data=>dispatch({
-      type: PERMISSIONS_FETCH_SUCC,
-      data
-    })).catch(err=>dispatch({
+    }).then(data=>{
+      dispatch({
+        type: PERMISSIONS_FETCH_SUCC,
+        data: data.data,
+      });
+    }).catch(err=>dispatch({
       type: PERMISSIONS_FETCH_FAIL,
       errMsg: err,
     }));

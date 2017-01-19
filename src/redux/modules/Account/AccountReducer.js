@@ -25,6 +25,8 @@ export default function roleReducer(state = initialState, action = {}) {
       ...state,
       fetchState: '请求成功',
       data: action.data,
+      total: action.total,
+      limit: action.limit,
     };
   case ACCOUNT_FETCH_FAIL:
     return {

@@ -25,7 +25,7 @@ export default class Permissions extends Component {
     const {data, fetchState, errMsg} = this.props;
     return (
       <div>
-        {errMsg ? <div>{errMsg}</div> : ''}
+        {errMsg ? (<div>{errMsg}</div>) : ''}
         <Collapse defaultActiveKey={['1']} bordered={false}>
           {
             data.map((item, index)=>(

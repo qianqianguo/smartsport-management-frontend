@@ -10,6 +10,7 @@ import {Table, Input, Button} from 'antd';
       searchAccountText: state.accountReducer.searchAccountText,
       searchNameText: state.accountReducer.searchNameText,
       limit: state.accountReducer.limit,
+      total: state.accountReducer.total,
     }
   ), {fetchAccount, onSearchAccountText, onSearchNameText}
 )
@@ -38,7 +39,8 @@ export default class Account extends Component {
 
   render() {
     require('./Account.css');
-    const {searchAccountText, searchNameText, data, limit} = this.props;
+    const {searchAccountText, searchNameText, data, limit, total} = this.props;
+    console.log(total);
     const columns = [
       {
         title: '管理员账户',
@@ -55,15 +57,14 @@ export default class Account extends Component {
       }, {
         title: '状态',
         render: (text, record, index) =><span>{text.status ? ' 启用 ' : ' 停用 '}</span>,
-        key: 'status',
       }, {
         title: '操作',
         render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, text)}>编辑</Button>,
         key: '_id',
-      }
+      },
     ];
     const pagination = {
-      total: data.length,
+      total: total,
       showQuickJumper: true,
       showSizeChanger: true,
       onChange: (current, pageSize) => {
@@ -109,7 +110,7 @@ export default class Account extends Component {
           </div>
           <Button type="primary" className="fr" onClick={this.onAddAccount.bind(this)}>添加账号</Button>
         </div>
-        <Table columns={columns} dataSource={data} pagination={pagination}/>
+        <Table columns={columns} dataSource={data} pagination={pagination} rowKey={(item)=>item['_id']}/>
       </div>
     );
   }

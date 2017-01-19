@@ -19,8 +19,9 @@ export function fetchAccount(obj = {accountId: '', name: '', limit: 10, skip: 0}
     if (obj[item]) {
       query += `${item}=${obj[item]}&`;
     }
+    console.log('item', item);
   }
-  const url = `${ACCOUNTLIST}?${query}`;
+  const url = `${ACCOUNTLIST}?${query}`.slice(0, -1);
   return (dispatch, req) => {
     dispatch({
       type: ACCOUNT_FETCH_BEGIN,
@@ -28,10 +29,14 @@ export function fetchAccount(obj = {accountId: '', name: '', limit: 10, skip: 0}
     req.request({
       url,
       method: 'get'
-    }).then(data=>dispatch({
-      type: ACCOUNT_FETCH_SUCC,
-      data
-    })).catch(err=>dispatch({
+    }).then(data=>{
+      dispatch({
+        type: ACCOUNT_FETCH_SUCC,
+        data: data.results,
+        total: data.total,
+        limit: obj.limit,
+      });
+    }).catch(err=>dispatch({
       type: ACCOUNT_FETCH_FAIL,
     }));
   };
