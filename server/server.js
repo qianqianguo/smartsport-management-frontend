@@ -23,6 +23,7 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
 // 代理转发，解决跨域问题
 app.use('/proxy', (req, res) => {
+  console.log(req.url); // TODO
   // TODO 用于前端开发模拟数据使用
   if ( config.apiHost === 'localhost' && analogData(req, res)) {
     return;

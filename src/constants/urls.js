@@ -3,7 +3,7 @@ import config from './config';
 
 const PROTOCOL = 'http://';
 const HOST = config.host;
-const PORT = '3000';
+const PORT = config.port;
 const PROXY = '/proxy';
 const DOMAIN = `${PROTOCOL}${HOST}:${PORT}${PROXY}`;
 

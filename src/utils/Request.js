@@ -1,5 +1,7 @@
 import 'isomorphic-fetch';
 import lodash from 'lodash';
+import { browserHistory } from 'react-router';
+
 const isRepeatRequest = false; // 防重复提交
 const lastRequestParam = [];
 export default class Request {
@@ -45,6 +47,10 @@ export default class Request {
           ~lastRequestParam.indexOf(obj) && lastRequestParam.splice(lastRequestParam.indexOf(obj), 1);
           if (!silent) {
             clearTimeout(timeOut);
+          }
+          if (response.status === 401) {
+            browserHistory.push('/login');
+            return null; // 没有权限，跳转到登陆页，做请求失败，没失败信息
           }
           if (response.ok) {
             isOk = true;

@@ -22,7 +22,6 @@ import config from 'constants/config';
     }
   }
 ])
-@connect(state => ({}), {logout})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired
@@ -38,7 +37,7 @@ export default class App extends Component {
       : <Link to={paths.join('/')}>{route.breadcrumbName}</Link>;
   }
   logoutHandler() {
-    this.props.logout({
+    logout({
       succ: this.logoutSucc.bind(this)
     });
   }

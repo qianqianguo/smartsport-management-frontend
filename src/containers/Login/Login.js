@@ -50,7 +50,7 @@ class Login extends Component {
   cancelHandler() {
     this.context.router.goBack();
   }
-  handleChangePwd() {
+  handleChangePwd(event) {
     event.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -70,7 +70,7 @@ class Login extends Component {
   }
   showChangePwd(getFieldDecorator) {
     return (
-      <Form className="login-form">
+      <Form className="login-form" onSubmit={this.handleChangePwd.bind(this)}>
         <Helmet title='修改密码'/>
         <FormItem>
           {getFieldDecorator('oldPwd', {
@@ -119,7 +119,7 @@ class Login extends Component {
               marginLeft: 8
             }}
             type="primary"
-            onClick={this.handleChangePwd.bind(this)}
+            htmlType="submit"
           >
             保存
           </Button>
@@ -129,7 +129,7 @@ class Login extends Component {
   }
   showLogin(getFieldDecorator) {
     return (
-      <Form className="login-form">
+      <Form className="login-form" onSubmit={this.handleLogin.bind(this)}>
         <Helmet title='登陆'/>
         <FormItem>
           {getFieldDecorator('accountId', {
@@ -160,7 +160,7 @@ class Login extends Component {
           <Button
             type="primary"
             className="login-form-button"
-            onClick={this.handleLogin.bind(this)}
+            htmlType="submit"
             >
             登录
           </Button>

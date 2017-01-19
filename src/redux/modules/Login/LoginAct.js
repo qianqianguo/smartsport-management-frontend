@@ -32,16 +32,20 @@ export function login(obj = {}) {
 // 登出
 export function logout(obj = {}) {
   obj.succ || (obj.succ = () => {});
-  obj.fail || (obj.fail = () => {});
-  return (dispatch, req) => {
-    req.request({url: LOGOUT, method: 'post'}).then(data => {
-      localStorage.removeItem('smartsport/token');
-      localStorage.removeItem('smartsport/user');
-      obj.succ();
-    }).catch(err => {
-      obj.fail();
-    });
-  };
+  localStorage.removeItem('smartsport/token');
+  localStorage.removeItem('smartsport/user');
+  obj.succ();
+  // TODO
+  // obj.fail || (obj.fail = () => {});
+  // return (dispatch, req) => {
+  //   req.request({url: LOGOUT, method: 'post'}).then(data => {
+  //     localStorage.removeItem('smartsport/token');
+  //     localStorage.removeItem('smartsport/user');
+  //     obj.succ();
+  //   }).catch(err => {
+  //     obj.fail();
+  //   });
+  // };
 }
 // 修改密码
 export function changePwd(obj = {}) {
