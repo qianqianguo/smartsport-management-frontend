@@ -34,7 +34,7 @@ export default class App extends Component {
     const last = routes.indexOf(route) === routes.length - 1;
     return last
       ? <span>{route.breadcrumbName}</span>
-      : <Link to={paths.join('/')}>{route.breadcrumbName}</Link>;
+      : <Link to={'/' + paths.join('/')}>{route.breadcrumbName}</Link>;
   }
   logoutHandler() {
     logout({
@@ -86,7 +86,7 @@ export default class App extends Component {
           >
             <SubMenu key="system" title={<span>系统管理</span>}>
               <Menu.Item key="account" className={styles.siderMenuItem} >
-                <IndexLink to={'/account'}>
+                <IndexLink to={'/'}>
                   <span>账号管理</span>
                 </IndexLink>
               </Menu.Item>

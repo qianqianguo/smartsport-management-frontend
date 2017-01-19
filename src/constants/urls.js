@@ -10,7 +10,7 @@ const DOMAIN = `${PROTOCOL}${HOST}:${PORT}${PROXY}`;
 export const TEST = `${DOMAIN}/test`;
 export const LOGIN = `${DOMAIN}/api/user/login`;
 export const LOGOUT = `${DOMAIN}/api/auth/user/logout`;
-export const CHANGE_PWD = `${DOMAIN}/api/auth/mgmt_account/change_password`;
+export const CHANGE_PWD = `${DOMAIN}/api/auth/user/change_password`;
 
 export const PERMISSIONSTLIST = `${DOMAIN}/api/auth/permission`;
 export const ACCOUNTLIST = `${DOMAIN}/api/auth/user`;

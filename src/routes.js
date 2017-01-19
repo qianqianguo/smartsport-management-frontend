@@ -34,8 +34,8 @@ export default (store) => {
   return (
     <Route>
       <Route onEnter={requireLogin} path='/' name='home' breadcrumbName='首页' component={Main}>
-        <IndexRoute name='home' component={Home}/>
-        <Route path='account' name='account' breadcrumbName='账号管理' component={Account}/>
+        {/* <IndexRoute name='home' component={Home}/> */}
+        <IndexRoute name='account' breadcrumbName='账号管理' component={Account}/>
         <Route path='role' name='role' breadcrumbName='角色管理' component={Role}/>
         <Route path='permissions' name='permissions' breadcrumbName='权限管理' component={Permissions}/>
       </Route>
