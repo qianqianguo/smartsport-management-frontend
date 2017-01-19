@@ -19,7 +19,6 @@ export function fetchAccount(obj = {accountId: '', name: '', limit: 10, skip: 0}
     if (obj[item]) {
       query += `${item}=${obj[item]}&`;
     }
-    console.log('item', item);
   }
   const url = `${ACCOUNTLIST}?${query}`.slice(0, -1);
   return (dispatch, req) => {

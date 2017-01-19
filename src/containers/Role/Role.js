@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {fetchRole, searchRole, onSearchRoleText} from 'redux/actions';
+import {asyncConnect} from 'redux-async-connect';
 import {Button, Input, Table} from 'antd';
 require('./Role.css');
 
@@ -13,8 +14,22 @@ require('./Role.css');
     }
   ), { fetchRole, searchRole, onSearchRoleText}
 )
+@asyncConnect([
+  {
+    promise: ({
+      store: {
+        dispatch,
+        getState
+      }
+    }) => {
+      const promises = [];
+      promises.push(dispatch(fetchRole()));
+      return Promise.all(promises);
+    }
+  }
+])
 export default class Role extends Component {
- componentWillMount() {this.props.fetchRole();}
+ // componentWillMount() {this.props.fetchRole();}
   static contextTypes = {
     router: PropTypes.object.isRequired
   }

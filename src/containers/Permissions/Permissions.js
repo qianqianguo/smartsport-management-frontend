@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { fetchPermissions } from 'redux/actions';
+import {asyncConnect} from 'redux-async-connect';
 import { Collapse, Icon } from 'antd';
 require('./Permissions.css');
 const Panel = Collapse.Panel;
@@ -17,10 +18,24 @@ const customPanelStyle = {
     }
   ), { fetchPermissions }
 )
-export default class Permissions extends Component {
-  componentWillMount() {
-    this.props.fetchPermissions();
+@asyncConnect([
+  {
+    promise: ({
+      store: {
+        dispatch,
+        getState
+      }
+    }) => {
+      const promises = [];
+      promises.push(dispatch(fetchPermissions()));
+      return Promise.all(promises);
+    }
   }
+])
+export default class Permissions extends Component {
+  // componentWillMount() {
+  //   this.props.fetchPermissions();
+  // }
   render() {
     const {data, fetchState, errMsg} = this.props;
     return (

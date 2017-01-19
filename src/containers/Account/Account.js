@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {fetchAccount, onSearchAccountText, onSearchNameText} from 'redux/actions';
 import {connect} from 'react-redux';
+import {asyncConnect} from 'redux-async-connect';
 import {Table, Input, Button} from 'antd';
 
 @connect(
@@ -14,10 +15,24 @@ import {Table, Input, Button} from 'antd';
     }
   ), {fetchAccount, onSearchAccountText, onSearchNameText}
 )
-export default class Account extends Component {
-  componentWillMount() {
-    this.props.fetchAccount();
+@asyncConnect([
+  {
+    promise: ({
+      store: {
+        dispatch,
+        getState
+      }
+    }) => {
+      const promises = [];
+      promises.push(dispatch(fetchAccount()));
+      return Promise.all(promises);
+    }
   }
+])
+export default class Account extends Component {
+  // componentWillMount() {
+  //   this.props.fetchAccount();
+  // }
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
@@ -40,7 +55,6 @@ export default class Account extends Component {
   render() {
     require('./Account.css');
     const {searchAccountText, searchNameText, data, limit, total} = this.props;
-    console.log(total);
     const columns = [
       {
         title: '管理员账户',
@@ -69,11 +83,18 @@ export default class Account extends Component {
       showSizeChanger: true,
       onChange: (current, pageSize) => {
         let skip = (current - 1) * limit;
+        if (searchAccountText || searchNameText) {
+          this.props.fetchAccount({accountId: searchAccountText, name: searchNameText, limit: limit});
+          return;
+        }
         this.props.fetchAccount({limit: limit, skip: skip});
-        console.log('skip: ', skip);
       },
       onShowSizeChange: (current, size) => {
         let skip = (current - 1) * size;
+        if (searchAccountText || searchNameText) {
+          this.props.fetchAccount({accountId: searchAccountText, name: searchNameText, limit: limit, skip: skip});
+          return;
+        }
         this.props.fetchAccount({limit: size, skip: skip});
       }
     };
@@ -87,7 +108,7 @@ export default class Account extends Component {
               value={searchAccountText}
               onChange={this.props.onSearchAccountText}
               onPressEnter={
-                this.props.fetchAccount.bind(null, {accountId: searchAccountText, name: searchNameText})
+                this.props.fetchAccount.bind(null, {accountId: searchAccountText, name: searchNameText, limit: 10})
               }/>
           </div>
           <div className="search-account">
@@ -96,13 +117,13 @@ export default class Account extends Component {
               value={searchNameText}
               onChange={this.props.onSearchNameText}
               onPressEnter={
-                this.props.fetchAccount.bind(null, {accountId: searchAccountText, name: searchNameText})
+                this.props.fetchAccount.bind(null, {accountId: searchAccountText, name: searchNameText, limit: 10})
               }/>
             <Button
               type="primary"
               className="search-submit"
               onClick={
-                this.props.fetchAccount.bind(null, {accountId: searchAccountText, name: searchNameText})
+                this.props.fetchAccount.bind(null, {accountId: searchAccountText, name: searchNameText, limit: 10})
               }
               >
                 查询
