@@ -14,19 +14,20 @@ import {
 import {ACCOUNTLIST} from 'constants/urls';
 
 export function fetchAccount(obj = {accountId: '', name: '', limit: 10, skip: 0}) {
+  let query = '';
+  for (const item in obj) {
+    if (obj[item]) {
+      query += `${item}=${obj[item]}&`;
+    }
+  }
+  const url = `${ACCOUNTLIST}?${query}`;
   return (dispatch, req) => {
     dispatch({
       type: ACCOUNT_FETCH_BEGIN,
     });
     req.request({
-      url: ACCOUNTLIST,
-      method: 'post',
-      body: {
-        accountId: obj.accountId,
-        name: obj.name,
-        limit: obj.limit,
-        skip: obj.skip,
-      },
+      url,
+      method: 'get'
     }).then(data=>dispatch({
       type: ACCOUNT_FETCH_SUCC,
       data

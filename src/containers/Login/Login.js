@@ -133,24 +133,26 @@ class Login extends Component {
         <Helmet title='登陆'/>
         <FormItem>
           {getFieldDecorator('accountId', {
-            // rules: [
-            //   {
-            //     required: true,
-            //     message: ACCOUNT_TIP,
-            //     pattern: ACCOUNT
-            //   }
-            // ]
+            rules: [
+              {
+                required: true,
+                message: '必输项'
+                // message: ACCOUNT_TIP,
+                // pattern: ACCOUNT
+              }
+            ]
           })(<Input placeholder="邮箱、手机号"/>)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
-            // rules: [
-            //   {
-            //     required: true,
-            //     message: PASSWORD_TIP,
-            //     pattern: PASSWORD
-            //   }
-            // ]
+            rules: [
+              {
+                required: true,
+                message: '必输项'
+                // message: PASSWORD_TIP,
+                // pattern: PASSWORD
+              }
+            ]
           })(<Input type="password" placeholder="密码"/>)}
         </FormItem>
         <span>{`${this.props.loginState}`}</span>
