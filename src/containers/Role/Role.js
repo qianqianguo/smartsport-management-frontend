@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {fetchRole, searchRole, onSearchRoleText} from 'redux/actions';
 import {asyncConnect} from 'redux-async-connect';
+import Helmet from 'react-helmet';
 import {Button, Input, Table} from 'antd';
 require('./Role.css');
 
@@ -70,6 +71,7 @@ export default class Role extends Component {
 
     return (
       <div>
+        <Helmet title='角色管理'/>
         {/* <div className="search-box">
           <label>角色：</label>
           <Input className="search-input"
@@ -97,7 +99,7 @@ export default class Role extends Component {
       <div>
         {this.props.children ? this.props.children : this.renderParent.call(this)}
       </div>
-    )
+    );
   }
 }
 

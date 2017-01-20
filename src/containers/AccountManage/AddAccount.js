@@ -70,7 +70,7 @@ const AccountAdd = Form.create()(React.createClass( {
           params: receivedValues,
           succ: this.succ,
           fail: this.fail
-        }
+        };
         this.props.fetchCreateSaveAccount(obj);
       }else {
         console.log(err);

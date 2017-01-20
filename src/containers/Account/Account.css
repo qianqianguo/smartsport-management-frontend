@@ -6,7 +6,7 @@
     width: 50%;
     margin: 0 20px;
 }
-.search-account{display: inline-block;margin-right: 20px;width: 300px;}
+.search-account{display: inline-block;margin-right: 20px;width: 350px;}
 .highlight{color: #00A854}
 .fr{float: right}
 .ant-table table th, .ant-table table td{text-align: center}

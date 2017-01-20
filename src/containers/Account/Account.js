@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {fetchAccount, onSearchAccountText, onSearchNameText} from 'redux/actions';
 import {connect} from 'react-redux';
 import {asyncConnect} from 'redux-async-connect';
+import Helmet from 'react-helmet';
 import {Table, Input, Button} from 'antd';
 
 @connect(
@@ -97,6 +98,7 @@ export default class Account extends Component {
     };
     return (
       <div>
+        <Helmet title='账号管理'/>
         <div className="search-box">
           <div className="search-account">
             <label>账号:</label>
@@ -137,6 +139,6 @@ export default class Account extends Component {
       <div>
         {this.props.children ? this.props.children : this.renderParent.call(this)}
       </div>
-    )
+    );
   }
 }

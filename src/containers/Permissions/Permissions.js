@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { fetchPermissions } from 'redux/actions';
 import {asyncConnect} from 'redux-async-connect';
+import Helmet from 'react-helmet';
 import { Collapse, Icon } from 'antd';
 require('./Permissions.css');
 const Panel = Collapse.Panel;
@@ -37,6 +38,7 @@ export default class Permissions extends Component {
     const {data, fetchState, errMsg} = this.props;
     return (
       <div>
+        <Helmet title='权限管理'/>
         <div className="add-role">
           <h2 className="displayil">权限列表</h2>
         </div>
