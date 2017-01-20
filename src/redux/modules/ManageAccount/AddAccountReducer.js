@@ -1,13 +1,12 @@
 
 import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes'
 
-var initialState = {
+let initialState = {
   count: 0,
-  data: {},
   fetchState: '',
-  err:''
+  data: {},
 }
-//用户添加并保存账号的reducer方法
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
@@ -19,18 +18,18 @@ export default function reducer(state = initialState, action = {}) {
     case TEST_FETCH_BEGIN:
       return {
         ...state,
-        fetchState: '发起请求',
+        fetchState: '发起请求'
       }
     case TEST_FETCH_SUCC:
       return {
         ...state,
         fetchState: '请求成功',
-        data: action.data
+        data: action.data,
       }
     case TEST_FETCH_FAIL:
       return {
         ...state,
-        fetchState: '请求失败',
+        fetchState: '请求失败'
       }
     default:
       return state;

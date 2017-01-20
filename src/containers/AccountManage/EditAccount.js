@@ -8,74 +8,103 @@ import { Form, Select, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AccountEdit = Form.create()(React.createClass({
-  handleSubmit(e) {
-    e.preventDefault();
+
+// 绑定redux，包括方法和数据
+@connect(
+  state => (
+    {
+      count: state.editAccount.count,
+      fetchState: state.editAccount.fetchState,
+      data: state.editAccount.data,
+    }
+  ), {addNumber, fetchEditSaveAccount}
+)
+export default class EditAccount extends Component {
+  static propTypes = {
+    count: PropTypes.number,
+    addNumber: PropTypes.func.isRequired,
+  }
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+  succ() {
+    this.context.router.push({
+      pathname: '/account',
+    });
+  }
+  fail() {
+  }
+  render() {
+    const {count, fetchState, data} = this.props;
+    return (
+      <div style={{padding: 30}}>
+        <AccountEdit {...this.props} succ = {this.succ.bind(this)} fail = {this.fail.bind(this)}/>
+        <button onClick={this.props.fetchEditSaveAccount} > {`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
+      </div>
+    );
+  }
+}
+
+// 封装的编辑账号界面组件
+const AccountEdit = Form.create()(React.createClass( {
+  succ() {
+    this.props.succ();
+  },
+
+  fail() {
+    this.props.fail();
+  },
+
+  handleSubmit( event ) {
+    event.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        var receivedValues={
-          accountId:values.accountId,
-          name:values.name,
-          password:values.password,
-          role:values.role,
-          status:parseInt(values.status),
+        let receivedValues = {
+          name: values.name === this.props.location.state['name'] ? this.props.location.state['name'] : values.name,
+          role: values.role === this.props.location.state['role'] ? this.props.location.state['role'] : values.role,
+          status: parseInt(values.status) === this.props.location.state['status'] ? this.props.location.state['status'] : parseInt(values.status),
         };
-        console.log('接口所需要的值: ', receivedValues.role);
-        this.props.fetchEditSaveAccount(receivedValues);
-        console.log('打印data: ', this.props.data);
-      }else {
+        console.log('最终账号信息: ', receivedValues);
+        let obj = {
+          id: this.props.location.state['_id'],
+          params: receivedValues,
+          succ: this.succ,
+          fail: this.fail,
+        }
+        // 如果用户没有更改信息，不用做请求直接返回账号列表
+        if (values.name === receivedValues.name &&
+          values.role === receivedValues.role &&
+          values.status === receivedValues.status) {
+          this.succ();
+        } else {
+          this.props.fetchEditSaveAccount(obj);
+        }
+      } else {
         console.log(err);
       }
     });
   },
-  //当选择下拉数据时候值改变调用
-  // handleSelectChange(value) {
-  //   console.log(value);
-  //   this.props.form.setFieldsValue({
-  //     note: `account, ${value === 'male' ? 'man' : 'lady'}!`,
-  //   });
-  // },
-  //
-  // checkPwdLogin(e){
-  //   if (!(e.target.value.length >= 6 && e.target.value.length <= 16)){
-  //     this.props.form.setFieldsValue({
-  //       password: '',
-  //     });
-  //     this.props.form.validateFields((err, values) => {
-  //       if (!err) {
-  //         console.log('提交表单时表单所接收到的值：', values);
-  //       }else {
-  //         console.log(err);
-  //       }
-  //     });
-  //   }
-  // },
-  //
-  // checkAccount(e){
-  //   if (!(e.target.value.length >= 4 && e.target.value.length <= 16)){
-  //     this.props.form.setFieldsValue({
-  //       accountId: '',
-  //     });
-  //     this.props.form.validateFields((err, values) => {
-  //       if (!err) {
-  //         console.log('提交表单时表单所接收到的值：', values);
-  //       }else {
-  //         console.log(err);
-  //       }
-  //     });
-  //   }
-  // },
+
+  componentDidMount() {
+    this.props.form.setFieldsValue({
+      accountId: this.props.location.state['accountId'],
+      name: this.props.location.state['name'],
+      role: this.props.location.state['role'],
+      status: this.props.location.state['status'] === 1 ? '启用' : '停用',
+    });
+  },
 
   render() {
+    console.log(this.props.location);
     const { getFieldDecorator, setFieldsValue } = this.props.form;
-    const {fetchState} = this.props;
+    const { fetchState } = this.props;
     return (
       <div>
         <div>
-          <span style={{fontSize:18, borderWidth:2}}>编辑账号</span>
+          <span style={{fontSize: 18, borderWidth: 2}}>编辑账号</span>
         </div>
-        <Form onSubmit={this.handleSubmit} style={{marginTop:30}}>
+        <Form onSubmit={this.handleSubmit} style={{marginTop: 30}}>
           <FormItem>
             <div>
               <span>管理员账号:</span>
@@ -83,17 +112,7 @@ const AccountEdit = Form.create()(React.createClass({
             {getFieldDecorator('accountId', {
               rules: [{ required: true, message: ACCOUNT_TIP, pattern: ACCOUNT}],
             })(
-              <Input />
-            )}
-          </FormItem>
-          <FormItem>
-            <div>
-              <span>登录密码:</span>
-            </div>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: PASSWORD_TIP, pattern: PASSWORD}],
-            })(
-              <Input type="password"/>
+              <Input disabled = {true}/>
             )}
           </FormItem>
           <FormItem>
@@ -123,7 +142,7 @@ const AccountEdit = Form.create()(React.createClass({
           </FormItem>
           <FormItem>
             <div>
-              <span>状态: <span className="stopUse" style={{color:'red'}}>(停用状态下，部分功能将无法正常使用)</span></span>
+              <span>状态: <span className="stopUse" style={{color: 'red'}}>(停用状态下，部分功能将无法正常使用)</span></span>
             </div>
             {getFieldDecorator('status', {
               rules: [{ required: true, message: '状态为必选项，请选择状态！'}],
@@ -136,7 +155,7 @@ const AccountEdit = Form.create()(React.createClass({
             )}
           </FormItem>
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-            <Button type="default" style={{marginRight:40}}>
+            <Button type="default" style={{marginRight: 40}}>
               取消
             </Button>
             <Button type="primary" htmlType='submit'>
@@ -148,32 +167,3 @@ const AccountEdit = Form.create()(React.createClass({
     );
   },
 }));
-
-// 绑定redux，包括方法和数据
-@connect(
-  state => (
-    {
-      count:state.editAccount.count,
-      fetchState: state.editAccount.fetchState,
-      data:state.editAccount.data,
-    }
-  ), {addNumber,fetchEditSaveAccount}
-)
-export default class EditAccount extends Component {
-  static propTypes = {
-    count: PropTypes.number,
-    addNumber: PropTypes.func.isRequired,
-  }
-  render() {
-    const {count, fetchState, data} = this.props;
-    return (
-      <div style={{padding:30}}>
-        <AccountEdit {...this.props}/>
-        <button onClick={this.props.fetchEditSaveAccount} > {`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
-      </div>
-    );
-  }
-}
-
-//<Button onClick={this.props.addNumber}>数字加1：{count}</Button>
-//<Button onClick={this.props.fetchSaveAccount}>请求状态：{fetchState}</Button>

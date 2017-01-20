@@ -8,8 +8,10 @@ import {
     Account,
     Role,
     Permissions,
-    AddRole,
     AddAccount,
+    EditAccount,
+    AddRole,
+    EditRole,
   } from 'containers';
 // 两种跳转方式
 // to={{ pathname: '/account', state: {parmas: 1}, query: {id: 1} }}
@@ -36,10 +38,15 @@ export default (store) => {
   return (
     <Route>
       <Route onEnter={requireLogin} path='/' name='home' breadcrumbName='首页' component={Main}>
-
-        {/* <IndexRoute name='home' component={Home}/> */}
-        <IndexRoute name='account' breadcrumbName='账号管理' component={Account}/>
-        <Route path='role' name='role' breadcrumbName='角色管理' component={Role}/>
+        <IndexRoute name='home' component={Home}/>
+        <Route path='account' name='account' breadcrumbName='账号管理' component={Account}>
+          <Route path='addAccount' name='account' breadcrumbName='添加账号' component={AddAccount}/>
+          <Route path='editAccount' name='account' breadcrumbName='编辑账号' component={EditAccount}/>
+        </Route>
+        <Route path='role' name='role' breadcrumbName='角色管理' component={Role}>
+          <Route path='addRole' name='role' breadcrumbName='添加角色' component={AddRole}/>
+          <Route path='editRole' name='role' breadcrumbName='编辑角色' component={EditRole}/>
+        </Route>
         <Route path='permissions' name='permissions' breadcrumbName='权限管理' component={Permissions}/>
       </Route>
       <Route path='/login' component={Login}/>

@@ -3,66 +3,80 @@ import { addNumber, fetchCreateSaveAccount } from 'redux/actions';
 import React, {Component, PropTypes} from 'react';
 import { Form, Select, Input, Button } from 'antd';
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation';
-
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AccountAdd = Form.create()(React.createClass({
-  handleSubmit(e) {
-    e.preventDefault();
+
+// 绑定redux，包括方法和数据
+@connect(
+  state => (
+    {
+      count: state.addAccount.count,
+      data: state.addAccount.data,
+      fetchState: state.addAccount.fetchState,
+    }
+  ), {addNumber, fetchCreateSaveAccount}
+)
+export default class AddAccount extends Component {
+  static propTypes = {
+    count: PropTypes.number,
+    addNumber: PropTypes.func,
+  }
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+  succ() {
+    this.context.router.push({
+      pathname: '/account',
+    });
+  }
+  fail() {
+  }
+  // componentWillMount(){
+  //   this.props.location.state.id
+  //   api/auth/role/:userRoleId?selectedRoleId=XX
+  // }
+
+  render() {
+    return (
+      <div style={{padding: 30}}>
+        <AccountAdd {...this.props} succ={this.succ.bind(this)} fail={this.fail.bind(this)}/>
+      </div>
+    );
+  }
+}
+
+const AccountAdd = Form.create()(React.createClass( {
+  succ() {
+    this.props.succ();
+  },
+
+  fail() {
+    this.props.fail();
+  },
+
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        var receivedValues={
-          accountId:values.accountId,
-          name:values.name,
-          password:values.password,
-          role:values.role,
-          status:parseInt(values.status),
+        let receivedValues = {
+          accountId: values.accountId,
+          name: values.name,
+          password: values.password,
+          role: values.role,
+          status: parseInt(values.status),
         };
-        this.props.fetchCreateSaveAccount(receivedValues);
+        console.log('添加账号的参数: ', receivedValues);
+        let obj = {
+          params: receivedValues,
+          succ: this.succ,
+          fail: this.fail
+        }
+        this.props.fetchCreateSaveAccount(obj);
       }else {
         console.log(err);
       }
     });
   },
-
-  // 当选择下拉数据时候值改变调用
-  // handleSelectChange(value) {
-  //   console.log(value);
-  //   this.props.form.setFieldsValue({
-  //     note: `account, ${value === 'male' ? 'man' : 'lady'}!`,
-  //   });
-  // },
-  //
-  // checkPwdLogin(e){
-  //   if (!(e.target.value.length >= 6 && e.target.value.length <= 16)){
-  //     this.props.form.setFieldsValue({
-  //       password: '',
-  //     });
-  //     this.props.form.validateFields((err, values) => {
-  //       if (!err) {
-  //         console.log('提交表单时表单所接收到的值：', values);
-  //       }else {
-  //         console.log(err);
-  //       }
-  //     });
-  //   }
-  // },
-  //
-  // checkAccount(e){
-  //   if (!(e.target.value.length >= 4 && e.target.value.length <= 16)){
-  //     this.props.form.setFieldsValue({
-  //       accountId: '',
-  //     });
-  //     this.props.form.validateFields((err, values) => {
-  //       if (!err) {
-  //         console.log('提交表单时表单所接收到的值：', values);
-  //       }else {
-  //         console.log(err);
-  //       }
-  //     });
-  //   }
-  // },
 
   render() {
     const { getFieldDecorator, setFieldsValue } = this.props.form;
@@ -141,43 +155,9 @@ const AccountAdd = Form.create()(React.createClass({
             </Button>
           </FormItem>
         </Form>
+        <span>请求状态:{this.props.fetchState}</span>
       </div>
     );
   },
 }));
 
-// 绑定redux，包括方法和数据
-@connect(
-  state => (
-    {
-      count: state.addAccount.count,
-      data: state.addAccount.data,
-      fetchState: state.addAccount.fetchState,
-    }
-  ), {addNumber, fetchCreateSaveAccount}
-)
-export default class AddAccount extends Component {
-  static propTypes = {
-    count: PropTypes.number,
-    addNumber: PropTypes.func.isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  }
-  // componentWillMount(){
-  //   this.props.location.state.id
-  //   api/auth/role/:userRoleId?selectedRoleId=XX
-  // }
-
-  render() {
-    return (
-      <div style={{padding: 30}}>
-        <AccountAdd {...this.props}/>
-      </div>
-    );
-  }
-}
-
-// <Button onClick={this.props.addNumber}>数字加1：{count}</Button>
-// <Button onClick={this.props.fetchSaveAccount}>请求状态：{fetchState}</Button>

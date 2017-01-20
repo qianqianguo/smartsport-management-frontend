@@ -10,10 +10,12 @@ const customPanelStyle = {
   border: 0,
 };
 const CheckboxGroup = Checkbox.Group;
-var arrRole = [];
-//判断一个对象是否为空
-function judge(obj){
-  for(var i in obj){//如果不为空，则会执行到这一步，返回true
+let arrRole = [];
+
+// 判断一个对象是否为空
+function judge(obj) {
+  if ( obj ) {// 如果不为空，则会执行到这一步，返回true
+    console.log('空空');
     return true;
   }
   return false;
@@ -21,8 +23,8 @@ function judge(obj){
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
 }
-function onCheckboxChange(e) {
-  console.log(`checked = ${e.target.checked}`);
+function onCheckboxChange(event) {
+  console.log(`checked = ${event.target.checked}`);
 }
 
 const plainOptions = ['管理权限', '设备权限', '其他权限', '鬼的权限'];
@@ -46,23 +48,24 @@ const optionsWithDisabled = [
       count: state.addRole.count,
       data: state.addRole.data,
       fetchState: state.addRole.fetchState,
-      roleData:state.fetchRole.roleData,
+      roleData: state.fetchRole.roleData,
     }
   ), {increment, fetchData, fetchRolesData}
 )
-export default class AddRole extends Component{
+export default class AddRole extends Component {
   constructor(props) {
     super(props);
     this.state = {
       nameRole: '',
+      dataRole: {}
     };
   }
-  getInputText(e){
-    this.setState({nameRole:e.target.value});
+  getInputText(event) {
+    this.setState({nameRole: event.target.value});
   }
 
-  fetchDataRoles(){
-    this.props.fetchRolesData();//把要从redux中读取的方法放在渲染外面以免一开始就被触发
+  fetchDataRoles() {
+    this.props.fetchRolesData();// 把要从redux中读取的方法放在渲染外面以免一开始就被触发
   }
 
   render() {
@@ -70,40 +73,30 @@ export default class AddRole extends Component{
     const {count, data, fetchState, roleData} = this.props;
     const {nameRole} = this.state;
 
-    if (!judge(this.props.roleData)){
+    if (!judge(this.props.roleData)) {
       this.fetchDataRoles.bind(this);
-    }else{
-      console.log('shushu',this.props.roleData);
+    }else {
+      console.log('shushu', this.props.roleData);
       arrRole = this.props.roleData.data;
-    }
-
-    var getRoleArr = function (roleArr) {
-
-      for(var i = 0; i< roleArr.length; i++){
-        var roleModule = roleArr[i];
-        return(
-          <Panel header={roleModule.jurisdiction} key={'i'} style={customPanelStyle}>
-            <div>
-              <div style={{float:'left'}}>
-                <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-                <CheckboxGroup options={roleModule.permissions} onChange={onChange}/>
-              </div>
-            </div>
-          </Panel>
-        )
-      }
     }
 
     return (
         <div className={styles.counterContainer}>
           <div>
-            <span style={{float:'left', color:'black', fontSize:16}}>角色:</span>
-            <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} style={{marginTop:10}}/>
+            <span style={{float: 'left', color: 'black', fontSize: 16}}>角色:</span>
+            <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} style={{marginTop: 10}}/>
           </div>
-          <div style={{marginTop:20}}>
-            <span style={{color:'black', fontSize:16}}>权限:</span><br />
-            <Collapse bordered={false} style={{marginTop:10}}>
-              {getRoleArr(arrRole)}
+          <div style={{marginTop: 20}}>
+            <span style={{color: 'black', fontSize: 16}}>权限:</span><br />
+            <Collapse bordered={false} style={{marginTop: 10}}>
+              <Panel header = "jsldkjfk" key={'i'} style={customPanelStyle}>
+                <div>
+                  <div style={{float: 'left'}}>
+                    <Checkbox onChange = {onCheckboxChange}>全选</Checkbox>
+                    <CheckboxGroup options = { plainOptions } onChange={onChange}/>
+                  </div>
+                </div>
+              </Panel>
             </Collapse>
           </div>
           <button onClick={this.props.fetchRolesData}>{`fetch data: ${JSON.stringify(roleData)}, state: ${fetchState}`}</button>
@@ -111,4 +104,3 @@ export default class AddRole extends Component{
     );
   }
 }
-//<button onClick={this.props.fetchData}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>

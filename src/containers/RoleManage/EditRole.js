@@ -14,8 +14,8 @@ const CheckboxGroup = Checkbox.Group;
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
 }
-function onCheckboxChange(e) {
-  console.log(`checked = ${e.target.checked}`);
+function onCheckboxChange(event) {
+  console.log(`checked = ${event.target.checked}`);
 }
 
 const plainOptions = ['管理权限', '设备权限', '其他权限', '鬼的权限'];
@@ -42,18 +42,16 @@ const optionsWithDisabled = [
     }
   ), {increment, fetchData}
 )
-export default class EditRole extends Component{
+export default class EditRole extends Component {
   constructor(props) {
     super(props);
     this.state = {
       nameRole: '',
     };
   }
-  getInputText(e){
-    this.setState({nameRole:e.target.value});
-
+  getInputText(event) {
+    this.setState({nameRole: event.target.value});
   }
-
   render() {
     const styles = require('./AddRole.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应的字符串就行
     const {count, data, fetchState} = this.props; // 所有的数据，即state都是通过redux来管理， 操作state由action来负责
@@ -61,17 +59,17 @@ export default class EditRole extends Component{
     return (
       <div className={styles.counterContainer}>
         <div>
-          <span style={{float:'left', color:'black', fontSize:16}}>角色:</span>
-          <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} style={{marginTop:10}}/>
+          <span style={{ float: 'left', color: 'black', fontSize: 16 }}>角色:</span>
+          <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} style={{marginTop: 10}}/>
         </div>
-        <div style={{marginTop:20}}>
-          <span style={{color:'black', fontSize:16}}>权限:</span><br />
-          <Collapse bordered={false} defaultActiveKey={['1']} style={{marginTop:10}}>
+        <div style={{marginTop: 20}}>
+          <span style={{color: 'black', fontSize: 16}}>权限:</span><br />
+          <Collapse bordered={false} defaultActiveKey={['1']} style={{marginTop: 10}}>
             <Panel header="权限模块名1" key="1" style={customPanelStyle}>
               <div>
-                <div style={{float:'left'}}>
+                <div style={{float: 'left'}}>
                   <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-                  <CheckboxGroup options={plainOptions} onChange={onChange}/>
+                  <CheckboxGroup options={plainOptions} onChange={onChange} />
                   <br />
                   <CheckboxGroup options={options} onChange={onChange} />
                   <br />
@@ -81,7 +79,7 @@ export default class EditRole extends Component{
             </Panel>
             <Panel header="权限模块名2" key="2" style={customPanelStyle}>
               <div>
-                <div style={{float:'left'}}>
+                <div style={{float: 'left'}}>
                   <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
                   <CheckboxGroup options={plainOptions} onChange={onChange}/>
                   <br />
@@ -93,9 +91,9 @@ export default class EditRole extends Component{
             </Panel>
             <Panel header="权限模块名3" key="3" style={customPanelStyle}>
               <div>
-                <div style={{float:'left', marginTop:20}}>
+                <div style={{float: 'left', marginTop: 20}}>
                   <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-                  <CheckboxGroup options={plainOptions} onChange={onChange}/>
+                  <CheckboxGroup optons={plainOptions} onChange={onChange}/>
                   <br />
                   <CheckboxGroup options={options} onChange={onChange} />
                   <br />
@@ -110,4 +108,3 @@ export default class EditRole extends Component{
     );
   }
 }
-//<button onClick={this.props.fetchData}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>

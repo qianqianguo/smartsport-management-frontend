@@ -86,7 +86,7 @@ export default class App extends Component {
           >
             <SubMenu key="system" title={<span>系统管理</span>}>
               <Menu.Item key="account" className={styles.siderMenuItem} >
-                <IndexLink to={'/'}>
+                <IndexLink to={'/account'}>
                   <span>账号管理</span>
                 </IndexLink>
               </Menu.Item>

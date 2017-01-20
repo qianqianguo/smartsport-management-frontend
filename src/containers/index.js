@@ -5,5 +5,7 @@ export Login from './Login/Login';
 export Account from './Account/Account';
 export Role from './Role/Role';
 export Permissions from './Permissions/Permissions';
-export AddRole from './RoleManage/AddRole';
 export AddAccount from './AccountManage/AddAccount';
+export EditAccount from './AccountManage/EditAccount';
+export AddRole from './RoleManage/AddRole';
+export EditRole from './RoleManage/EditRole';

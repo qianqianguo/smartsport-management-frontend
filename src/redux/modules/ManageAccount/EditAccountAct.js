@@ -1,29 +1,37 @@
 import { INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL } from 'constants/actionTypes';
 import {TEST} from 'constants/urls';
-import {URL_EDIT_SAVE_ACCOUNT} from 'constants/urls';
+import {URL_EDITACCOUNT} from 'constants/urls';
 
 export function addNumber() {
   return {
     type: INCREMENT
   };
 }
-//请求数据，先发送一个请求开始状态的action，请求成功和失败分别再发送action
-export function fetchEditSaveAccount(pramsJson) {
+// 请求数据，先发送一个请求开始状态的action，请求成功和失败分别再发送action
+export function fetchEditSaveAccount(obj) {
+  const id = obj.id;
+  const url = URL_EDITACCOUNT.replace(':id', id);
   return (dispatch, req, getState)=>{
     dispatch({
       type: TEST_FETCH_BEGIN
     });
     setTimeout(()=>{
       req.request({
-        url: URL_EDIT_SAVE_ACCOUNT,
+        url,
         method: 'PUT',
-        body:pramsJson,
-      }).then(data=>dispatch({
+        body: obj.params,
+      }).then(data=>{
+        obj.succ();
+        dispatch({
         type: TEST_FETCH_SUCC,
         data,
-      })).catch(err=>dispatch({
+      });
+      }).catch(err=>{
+        obj.fail();
+        dispatch({
         type: TEST_FETCH_FAIL
-      }));
+      });
+      });
     }, 2000);
   };
 }

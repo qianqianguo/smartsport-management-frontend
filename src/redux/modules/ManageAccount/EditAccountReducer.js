@@ -1,10 +1,10 @@
 
 import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes'
 
-var initialState = {
-  count:0,
-  fetchState:'',
-  data:{},
+let initialState = {
+  count: 0,
+  fetchState: '',
+  data: {},
 }
 
 export default function reducer(state = initialState, action = {}) {

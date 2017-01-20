@@ -35,7 +35,7 @@ export default class Role extends Component {
 
   onEditor(text) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/role/editRole',
       state: {
         ...text,
       }
@@ -44,11 +44,11 @@ export default class Role extends Component {
 
   onAddRole(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/role/addRole',
     });
   }
 
-  render() {
+  renderParent() {
     const {searchText, data} = this.props;
     const pagination = {
       total: data.length,
@@ -67,6 +67,7 @@ export default class Role extends Component {
         render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, text)}>编辑</Button>,
       }
     ];
+
     return (
       <div>
         {/* <div className="search-box">
@@ -91,4 +92,12 @@ export default class Role extends Component {
       </div>
     );
   }
+  render() {
+    return (
+      <div>
+        {this.props.children ? this.props.children : this.renderParent.call(this)}
+      </div>
+    )
+  }
 }
+

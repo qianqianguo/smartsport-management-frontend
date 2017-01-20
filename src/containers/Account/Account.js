@@ -36,7 +36,7 @@ export default class Account extends Component {
 
   onEditor(record) {
     this.context.router.push({
-      pathname: '/account/add-account',
+      pathname: '/account/editAccount',
       state: {
         ...record,
       }
@@ -45,11 +45,11 @@ export default class Account extends Component {
 
   onAddAccount(record) {
     this.context.router.push({
-      pathname: '/account/add-account',
+      pathname: '/account/addAccount',
     });
   }
 
-  renderAccount() {
+  renderParent() {
     require('./Account.css');
     const {searchAccountText, searchNameText, data, limit, total} = this.props;
     const columns = [
@@ -67,7 +67,7 @@ export default class Account extends Component {
         key: 'role',
       }, {
         title: '状态',
-        render: (text, record, index) =><span>{text.status ? ' 启用 ' : ' 停用 '}</span>,
+        render: (text, record, index) =><span>{text.status ? '启用' : '停用'}</span>,
       }, {
         title: '操作',
         render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, text)}>编辑</Button>,
@@ -135,8 +135,8 @@ export default class Account extends Component {
   render() {
     return (
       <div>
-        {this.props.children ? this.props.children : this.renderAccount.call(this)}
+        {this.props.children ? this.props.children : this.renderParent.call(this)}
       </div>
-    );
+    )
   }
 }
