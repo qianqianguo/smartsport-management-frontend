@@ -30,16 +30,13 @@ import {Table, Input, Button} from 'antd';
   }
 ])
 export default class Account extends Component {
-  // componentWillMount() {
-  //   this.props.fetchAccount();
-  // }
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
 
   onEditor(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/account/add-account',
       state: {
         ...record,
       }
@@ -48,11 +45,11 @@ export default class Account extends Component {
 
   onAddAccount(record) {
     this.context.router.push({
-      pathname: '/role',
+      pathname: '/account/add-account',
     });
   }
 
-  render() {
+  renderAccount() {
     require('./Account.css');
     const {searchAccountText, searchNameText, data, limit, total} = this.props;
     const columns = [
@@ -84,7 +81,7 @@ export default class Account extends Component {
       onChange: (current, pageSize) => {
         let skip = (current - 1) * limit;
         if (searchAccountText || searchNameText) {
-          this.props.fetchAccount({accountId: searchAccountText, name: searchNameText, limit: limit});
+          this.props.fetchAccount({accountId: searchAccountText, name: searchNameText, limit: limit, skip: skip});
           return;
         }
         this.props.fetchAccount({limit: limit, skip: skip});
@@ -92,7 +89,7 @@ export default class Account extends Component {
       onShowSizeChange: (current, size) => {
         let skip = (current - 1) * size;
         if (searchAccountText || searchNameText) {
-          this.props.fetchAccount({accountId: searchAccountText, name: searchNameText, limit: limit, skip: skip});
+          this.props.fetchAccount({accountId: searchAccountText, name: searchNameText, limit: size, skip: skip});
           return;
         }
         this.props.fetchAccount({limit: size, skip: skip});
@@ -102,7 +99,7 @@ export default class Account extends Component {
       <div>
         <div className="search-box">
           <div className="search-account">
-            <label>搜索账号</label>
+            <label>账号:</label>
             <Input
               className="search-input"
               value={searchAccountText}
@@ -112,7 +109,7 @@ export default class Account extends Component {
               }/>
           </div>
           <div className="search-account">
-            <label>搜索姓名</label>
+            <label>姓名:</label>
             <Input className="search-input"
               value={searchNameText}
               onChange={this.props.onSearchNameText}
@@ -132,6 +129,13 @@ export default class Account extends Component {
           <Button type="primary" className="fr" onClick={this.onAddAccount.bind(this)}>添加账号</Button>
         </div>
         <Table columns={columns} dataSource={data} pagination={pagination} rowKey={(item)=>item['_id']}/>
+      </div>
+    );
+  }
+  render() {
+    return (
+      <div>
+        {this.props.children ? this.props.children : this.renderAccount.call(this)}
       </div>
     );
   }

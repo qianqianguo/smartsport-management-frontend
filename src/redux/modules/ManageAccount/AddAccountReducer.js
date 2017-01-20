@@ -9,7 +9,6 @@ var initialState = {
 }
 //用户添加并保存账号的reducer方法
 export default function reducer(state = initialState, action = {}) {
-  console.log('Reducer方法请求');
   switch (action.type) {
     case INCREMENT:
       const {count} = state;

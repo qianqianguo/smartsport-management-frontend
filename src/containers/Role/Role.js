@@ -29,16 +29,15 @@ require('./Role.css');
   }
 ])
 export default class Role extends Component {
- // componentWillMount() {this.props.fetchRole();}
   static contextTypes = {
     router: PropTypes.object.isRequired
   }
 
-  onEditor(record) {
+  onEditor(text) {
     this.context.router.push({
       pathname: '/role',
       state: {
-        ...record,
+        ...text,
       }
     });
   }
@@ -65,7 +64,7 @@ export default class Role extends Component {
       }, {
         title: '操作',
         key: '_id',
-        render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, record)}>编辑</Button>,
+        render: (text, record, index) =><Button type="primary" onClick={this.onEditor.bind(this, text)}>编辑</Button>,
       }
     ];
     return (
@@ -85,9 +84,10 @@ export default class Role extends Component {
           </Button>
         </div> */}
         <div className="add-role">
+          <h2 className="displayil">角色管理</h2>
           <Button type="primary" className="fr" onClick={this.onAddRole.bind(this)}>添加角色</Button>
         </div>
-        <Table columns={columns} dataSource={data} pagination={false}/>
+        <Table columns={columns} dataSource={data} pagination={false} rowKey={(item)=>item['_id']}/>
       </div>
     );
   }

@@ -26,7 +26,7 @@ const AccountAdd = Form.create()(React.createClass({
     });
   },
 
-  //当选择下拉数据时候值改变调用
+  // 当选择下拉数据时候值改变调用
   // handleSelectChange(value) {
   //   console.log(value);
   //   this.props.form.setFieldsValue({
@@ -70,9 +70,9 @@ const AccountAdd = Form.create()(React.createClass({
     return (
       <div>
         <div>
-          <span style={{fontSize:18, borderWidth:2}}>添加账号</span>
+          <span style={{fontSize: 18, borderWidth: 2}}>添加账号</span>
         </div>
-        <Form onSubmit={this.handleSubmit} style={{marginTop:30}}>
+        <Form onSubmit={this.handleSubmit} style={{marginTop: 30}}>
           <FormItem>
             <div>
               <span>管理员账号:</span>
@@ -120,7 +120,7 @@ const AccountAdd = Form.create()(React.createClass({
           </FormItem>
           <FormItem>
             <div>
-              <span>状态: <span className="stopUse" style={{color:'red'}}>(停用状态下，部分功能将无法正常使用)</span></span>
+              <span>状态: <span className="stopUse" style={{color: 'red'}}>(停用状态下，部分功能将无法正常使用)</span></span>
             </div>
             {getFieldDecorator('status', {
               rules: [{ required: true, message: '状态为必选项，请选择状态！'}],
@@ -133,7 +133,7 @@ const AccountAdd = Form.create()(React.createClass({
             )}
           </FormItem>
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-            <Button type="default" style={{marginRight:40}}>
+            <Button type="default" style={{marginRight: 40}}>
               取消
             </Button>
             <Button type="primary" htmlType='submit'>
@@ -146,15 +146,15 @@ const AccountAdd = Form.create()(React.createClass({
   },
 }));
 
-//绑定redux，包括方法和数据
+// 绑定redux，包括方法和数据
 @connect(
   state => (
     {
-      count:state.addAccount.count,
-      data:state.addAccount.data,
+      count: state.addAccount.count,
+      data: state.addAccount.data,
       fetchState: state.addAccount.fetchState,
     }
-  ), {addNumber,fetchCreateSaveAccount}
+  ), {addNumber, fetchCreateSaveAccount}
 )
 export default class AddAccount extends Component {
   static propTypes = {
@@ -172,12 +172,12 @@ export default class AddAccount extends Component {
 
   render() {
     return (
-      <div style={{padding:30}}>
+      <div style={{padding: 30}}>
         <AccountAdd {...this.props}/>
       </div>
     );
   }
 }
 
-//<Button onClick={this.props.addNumber}>数字加1：{count}</Button>
-//<Button onClick={this.props.fetchSaveAccount}>请求状态：{fetchState}</Button>
+// <Button onClick={this.props.addNumber}>数字加1：{count}</Button>
+// <Button onClick={this.props.fetchSaveAccount}>请求状态：{fetchState}</Button>

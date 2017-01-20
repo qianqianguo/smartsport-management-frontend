@@ -8,6 +8,8 @@ import {
     Account,
     Role,
     Permissions,
+    AddRole,
+    AddAccount,
   } from 'containers';
 // 两种跳转方式
 // to={{ pathname: '/account', state: {parmas: 1}, query: {id: 1} }}
@@ -34,6 +36,7 @@ export default (store) => {
   return (
     <Route>
       <Route onEnter={requireLogin} path='/' name='home' breadcrumbName='首页' component={Main}>
+
         {/* <IndexRoute name='home' component={Home}/> */}
         <IndexRoute name='account' breadcrumbName='账号管理' component={Account}/>
         <Route path='role' name='role' breadcrumbName='角色管理' component={Role}/>

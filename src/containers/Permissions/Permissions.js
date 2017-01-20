@@ -33,13 +33,13 @@ const customPanelStyle = {
   }
 ])
 export default class Permissions extends Component {
-  // componentWillMount() {
-  //   this.props.fetchPermissions();
-  // }
   render() {
     const {data, fetchState, errMsg} = this.props;
     return (
       <div>
+        <div className="add-role">
+          <h2 className="displayil">权限列表</h2>
+        </div>
         {errMsg ? (<div>{errMsg}</div>) : ''}
         <Collapse defaultActiveKey={['1']} bordered={false}>
           {
