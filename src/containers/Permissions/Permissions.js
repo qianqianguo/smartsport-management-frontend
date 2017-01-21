@@ -43,7 +43,7 @@ export default class Permissions extends Component {
           <h2 className="displayil">权限列表</h2>
         </div>
         {errMsg ? (<div>{errMsg}</div>) : ''}
-        <Collapse defaultActiveKey={['1']} bordered={false}>
+        <Collapse bordered={false}>
           {
             data.map((item, index)=>(
               <Panel header={item.name} key={index + 1} style={customPanelStyle}>
