@@ -1,27 +1,37 @@
-import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes';
+import { INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL } from 'constants/actionTypes';
 import {URL_ADDROLE} from 'constants/urls';
 
-export function increment() {
+
+export function addNumber() {
   return {
     type: INCREMENT
   };
 }
-// 请求数据，先发送一个请求开始状态的action，请求成功和失败分别再发送action
-export function fetchData() {
+
+// 先获取角色权限数据
+export function getDataAddRoleJurisdiction(obj) {
+  const id = obj.id;
+  const url = URL_ADDROLE.replace(':userRoleId', id);
+
   return (dispatch, req, getState)=>{
     dispatch({
       type: TEST_FETCH_BEGIN
     });
     setTimeout(()=>{
       req.request({
-        url: URL_ADDROLE,
-        method: 'get'
-      }).then(data=>dispatch({
-        type: TEST_FETCH_SUCC,
-        data,
-      })).catch(err=>dispatch({
-        type: TEST_FETCH_FAIL
-      }));
+        url,
+        method: 'get',
+      }).then(data=>{
+        dispatch({
+          type: TEST_FETCH_SUCC,
+          data,
+        });
+      }).catch(err=>{
+        dispatch({
+          type: TEST_FETCH_FAIL
+        });
+      });
     }, 2000);
   };
 }
+

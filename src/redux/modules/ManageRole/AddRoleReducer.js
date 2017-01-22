@@ -16,18 +16,18 @@ export default function reducer(state = initialState, action = {}) {
     case TEST_FETCH_BEGIN:
       return {
         ...state,
-        fetchState: '发起请求'
+        fetchState: '发起请求',
       }
     case TEST_FETCH_SUCC:
       return {
         ...state,
         fetchState: '请求成功',
-        data: action.data
+        data: action.data,
       }
     case TEST_FETCH_FAIL:
       return {
         ...state,
-        fetchState: '请求失败'
+        fetchState: '请求失败',
       }
     default:
       return state;

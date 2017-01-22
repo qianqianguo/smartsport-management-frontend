@@ -26,5 +26,4 @@ export default combineReducers({
   editAccount,
   addRole,
   editRole,
-  fetchRole,
 });

@@ -34,12 +34,14 @@ export default class EditAccount extends Component {
   }
   fail() {
   }
+  cancelEdit() {
+    this.context.router.goBack();
+  }
   render() {
     const {count, fetchState, data} = this.props;
     return (
       <div style={{padding: 30}}>
-        <AccountEdit {...this.props} succ = {this.succ.bind(this)} fail = {this.fail.bind(this)}/>
-        <button onClick={this.props.fetchEditSaveAccount} > {`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
+        <AccountEdit {...this.props} succ={this.succ.bind(this)} fail={this.fail.bind(this)} cancelEdit={this.cancelEdit.bind(this)}/>
       </div>
     );
   }
@@ -53,6 +55,10 @@ const AccountEdit = Form.create()(React.createClass( {
 
   fail() {
     this.props.fail();
+  },
+
+  cancelEdit() {
+    this.props.cancelEdit();
   },
 
   handleSubmit( event ) {
@@ -155,7 +161,7 @@ const AccountEdit = Form.create()(React.createClass( {
             )}
           </FormItem>
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-            <Button type="default" style={{marginRight: 40}}>
+            <Button type="default" style={{marginRight: 40}} onClick={this.cancelEdit.bind(this)}>
               取消
             </Button>
             <Button type="primary" htmlType='submit'>

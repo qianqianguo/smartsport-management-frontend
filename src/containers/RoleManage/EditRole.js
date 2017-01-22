@@ -1,8 +1,130 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { increment, fetchData } from 'redux/actions';
+import {getDataEditRoleJurisdiction} from 'redux/actions';
 import {Input, Checkbox, Collapse} from 'antd';
 
+let locationPermissions = new Array();
+// 绑定redux，包括方法和数据
+@connect(
+  state => (
+    {
+      data: state.editRole.data,
+      fetchState: state.editRole.fetchState,
+    }
+  ), {getDataEditRoleJurisdiction}
+)
+export default class AddRole extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      permissions: [],
+    }
+  }
+
+  getInputText(event) {
+    this.setState({nameRole: event.target.value});
+  }
+
+  getRoleJurisdiction(permissions) {
+    return permissions.map((item)=>item.name);
+  }
+
+  getRoleJurisdictionSelected(data) {
+    if (!(data.permissionResult && data.permissionResult.permissions)) {
+      return [];
+    }
+    let arrNameJurisdiction = data.permissionResult.permissions;
+    return arrNameJurisdiction.map((item) => item.name);
+  }
+
+  getRoleModule(data) {
+    return data.userPermissions ? (<Collapse bordered={false} defaultActiveKey={data.userPermissions[0].name} style={{marginTop: 10}}>
+        {
+          data.userPermissions.map((item)=>(<Panel header={item.name} key={item.name} style={customPanelStyle}>
+            <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
+            <CheckboxGroup options={this.getRoleJurisdiction(item.permissions)} onChange={onChange}/>
+          </Panel>))
+        }
+      </Collapse>) : (<div>获取权限模块失败，请刷新重试...</div>);
+  }
+
+  getNameRole() {
+    return this.props.location.state
+    && this.props.location.state.name ? this.props.location.state.name : '';
+  }
+
+  componentWillMount() {
+    let obj = {
+      id: JSON.parse(localStorage.getItem('smartsport/user'))['role'],
+      idRole: this.props.location.state._id,
+      succ: this.succ,
+    };
+    this.props.getDataEditRoleJurisdiction(obj);
+  }
+
+  componentDidMount() {
+    if (this.props.data.userPermissions) {
+      let arrPermissions = new Array();
+      let arr = this.props.data.userPermissions;
+      arr.map((item)=>{
+        let permissions = item.permissions;
+        locationPermissions.concat(permissions);
+        console.log('啊大家哈高速', permissions);
+
+      });
+      locationPermissions = arrPermissions;
+      console.log('成功', arrPermissions);
+    }
+  }
+
+  succ() {
+    console.log('成功', this.props.data);
+  }
+  // 权限选择激发
+  onChange(checkedList) {
+    this.setState({
+      checkedList,
+      indeterminate: !!checkedList.length && (checkedList.length < [].length),
+      checkAll: checkedList.length === [].length,
+    });
+  }
+
+  // 全选激发
+  onCheckAllChange(event) {
+    console.log('全部激发：', event.target.value);
+    this.setState({
+      checkedList: event.target.checked ? [] : ['新增角色', '查看角色'],
+      indeterminate: false,
+      checkAll: event.target.checked,
+    });
+  }
+
+  render() {
+    const styles = require('./AddRole.scss');
+    const {count, data, fetchState} = this.props;
+    console.log('请求到的编辑角色数据列表：', this.props.data);
+    let nameRole = this.getNameRole();
+    return (
+      <div className={styles.counterContainer}>
+        <div>
+          <span style={{fontSize: 18, borderWidth: 2}}>编辑角色</span>
+        </div>
+        <div>
+          <span style={{ float: 'left', color: 'black', fontSize: 16 }}>角色:</span>
+          <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} disabled={'true'} style={{marginTop: 10}}/>
+        </div>
+        <div style={{marginTop: 20}}>
+          <span style={{color: 'black', fontSize: 16}}>权限:</span><br />
+          {
+            this.getRoleModule(data)
+          }
+        </div>
+      </div>
+    );
+  }
+}
+
+// check相关设置
 const Panel = Collapse.Panel;
 const customPanelStyle = {
   borderRadius: 4,
@@ -10,101 +132,12 @@ const customPanelStyle = {
   border: 0,
 };
 const CheckboxGroup = Checkbox.Group;
+let arrRole = [];
 
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
 }
 function onCheckboxChange(event) {
-  console.log(`checked = ${event.target.checked}`);
+  console.log(`checked阿大使 = ${event.target.checked}`);
 }
 
-const plainOptions = ['管理权限', '设备权限', '其他权限', '鬼的权限'];
-const options = [
-  { label: '设备权限', value: '不同权限' },
-  { label: '设备权限', value: '反正权限' },
-  { label: '设备权限', value: '管理权限' },
-  { label: '设备权限', value: '哈哈' },
-];
-const optionsWithDisabled = [
-  { label: '管理权限', value: '管权限' },
-  { label: '管理权限', value: '管理限' },
-  { label: '管理权限', value: '傻逼权限' },
-  { label: '管理权限', value: '管理权限', disabled: false },
-];
-
-// 绑定redux，包括方法和数据
-@connect(
-  state => (
-    {
-      count: state.editRole.count,
-      data: state.editRole.data,
-      fetchState: state.editRole.fetchState,
-    }
-  ), {increment, fetchData}
-)
-export default class EditRole extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nameRole: '',
-    };
-  }
-  getInputText(event) {
-    this.setState({nameRole: event.target.value});
-  }
-  render() {
-    const styles = require('./AddRole.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应的字符串就行
-    const {count, data, fetchState} = this.props; // 所有的数据，即state都是通过redux来管理， 操作state由action来负责
-    const {nameRole} = this.state;
-    return (
-      <div className={styles.counterContainer}>
-        <div>
-          <span style={{ float: 'left', color: 'black', fontSize: 16 }}>角色:</span>
-          <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} style={{marginTop: 10}}/>
-        </div>
-        <div style={{marginTop: 20}}>
-          <span style={{color: 'black', fontSize: 16}}>权限:</span><br />
-          <Collapse bordered={false} defaultActiveKey={['1']} style={{marginTop: 10}}>
-            <Panel header="权限模块名1" key="1" style={customPanelStyle}>
-              <div>
-                <div style={{float: 'left'}}>
-                  <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-                  <CheckboxGroup options={plainOptions} onChange={onChange} />
-                  <br />
-                  <CheckboxGroup options={options} onChange={onChange} />
-                  <br />
-                  <CheckboxGroup options={optionsWithDisabled} onChange={onChange} />
-                </div>
-              </div>
-            </Panel>
-            <Panel header="权限模块名2" key="2" style={customPanelStyle}>
-              <div>
-                <div style={{float: 'left'}}>
-                  <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-                  <CheckboxGroup options={plainOptions} onChange={onChange}/>
-                  <br />
-                  <CheckboxGroup options={options} onChange={onChange} />
-                  <br />
-                  <CheckboxGroup options={optionsWithDisabled} onChange={onChange} />
-                </div>
-              </div>
-            </Panel>
-            <Panel header="权限模块名3" key="3" style={customPanelStyle}>
-              <div>
-                <div style={{float: 'left', marginTop: 20}}>
-                  <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-                  <CheckboxGroup optons={plainOptions} onChange={onChange}/>
-                  <br />
-                  <CheckboxGroup options={options} onChange={onChange} />
-                  <br />
-                  <CheckboxGroup options={optionsWithDisabled} onChange={onChange} />
-                </div>
-              </div>
-            </Panel>
-          </Collapse>
-        </div>
-        <button onClick={this.props.fetchData}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button>
-      </div>
-    );
-  }
-}

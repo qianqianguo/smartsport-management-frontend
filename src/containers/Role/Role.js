@@ -43,7 +43,7 @@ export default class Role extends Component {
     });
   }
 
-  onAddRole(record) {
+  onAddRole() {
     this.context.router.push({
       pathname: '/role/addRole',
     });

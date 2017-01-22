@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import { addNumber, fetchCreateSaveAccount } from 'redux/actions';
+import { addNumber, fetchCreateSaveAccount, getRoleList} from 'redux/actions';
 import React, {Component, PropTypes} from 'react';
 import { Form, Select, Input, Button } from 'antd';
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation';
@@ -14,12 +14,16 @@ const Option = Select.Option;
       data: state.addAccount.data,
       fetchState: state.addAccount.fetchState,
     }
-  ), {addNumber, fetchCreateSaveAccount}
+  ), {addNumber, fetchCreateSaveAccount, getRoleList}
 )
 export default class AddAccount extends Component {
   static propTypes = {
     count: PropTypes.number,
     addNumber: PropTypes.func,
+  }
+
+  componentWillMount() {
+    this.props.getRoleList();
   }
   static contextTypes = {
     router: PropTypes.object.isRequired
@@ -29,17 +33,16 @@ export default class AddAccount extends Component {
       pathname: '/account',
     });
   }
-  fail() {
+  cancelAdd() {
+    this.context.router.goBack();
   }
-  // componentWillMount(){
-  //   this.props.location.state.id
-  //   api/auth/role/:userRoleId?selectedRoleId=XX
-  // }
-
+  fail(err) {
+    console.log('提交账号失败：', err);
+  }
   render() {
     return (
       <div style={{padding: 30}}>
-        <AccountAdd {...this.props} succ={this.succ.bind(this)} fail={this.fail.bind(this)}/>
+        <AccountAdd {...this.props} succ={this.succ.bind(this)} fail={this.fail} cancelAdd={this.cancelAdd.bind(this)}/>
       </div>
     );
   }
@@ -52,6 +55,20 @@ const AccountAdd = Form.create()(React.createClass( {
 
   fail() {
     this.props.fail();
+  },
+
+
+  cancelAdd() {
+    this.props.cancelAdd();
+  },
+
+  getArrRoleList(data) {
+    console.log('获取的角色列表', data);
+    if (data && data.length > 0) {
+      data.map((item)=>{
+        return (<Option value={item.name}>{item.name}</Option>)
+      })
+    }else return;
   },
 
   handleSubmit(event) {
@@ -78,9 +95,14 @@ const AccountAdd = Form.create()(React.createClass( {
     });
   },
 
+
   render() {
     const { getFieldDecorator, setFieldsValue } = this.props.form;
-    const {fetchState} = this.props;
+    const {fetchState, data} = this.props;
+    let arrRole = new Array();
+    if (data && data.length > 0) {
+      arrRole = data;
+    }
     return (
       <div>
         <div>
@@ -126,9 +148,9 @@ const AccountAdd = Form.create()(React.createClass( {
               onChange: this.handleSelectChange,
             })(
               <Select placeholder="请选择角色...">
-                <Option value="普通">普通</Option>
-                <Option value="一般">一般</Option>
-                <Option value="特殊">特殊</Option>
+                {
+                  arrRole.map((item)=><Option value={item.name}>{item.name}</Option>)
+                }
               </Select>
             )}
           </FormItem>
@@ -147,7 +169,7 @@ const AccountAdd = Form.create()(React.createClass( {
             )}
           </FormItem>
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-            <Button type="default" style={{marginRight: 40}}>
+            <Button type="default" style={{marginRight: 40}} onClick={this.cancelAdd.bind(this)}>
               取消
             </Button>
             <Button type="primary" htmlType='submit'>
