@@ -1,0 +1,11 @@
+/*修改蚂蚁金服默认样式*/
+.ant-btn-primary {
+    color: #fff;
+    background-color: rgb(32, 203, 106);
+    border-color: rgb(32, 203, 106);
+}
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    color: #fff;
+    background-color: rgb(32, 220, 106);
+    border-color: rgb(32, 220, 106);
+}

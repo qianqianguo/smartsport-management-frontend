@@ -1,11 +1,11 @@
 .login-form {
-  width: 300px;
+  width: 400px;
+  padding: 20px 60px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   background-color: #fff;
-  padding: 20px;
   border-radius: 5px;
 }
 
@@ -13,22 +13,14 @@
   float: right;
 }
 
-.login-form-button {
-  width: 100%;
-}
-
 .login-bg {
   height: 100%;
   width: 100%;
   position: relative;
   background: -webkit-radial-gradient(#63eca7, #2ec87b);
-  /* Safari 5.1 - 6.0 */
   background: -o-radial-gradient(#63eca7, #2ec87b);
-  /* Opera 11.6 - 12.0 */
   background: -moz-radial-gradient(#63eca7, #2ec87b);
-  /* Firefox 3.6 - 15 */
   background: radial-gradient(#63eca7, #2ec87b);
-  /* 标准的语法 */
 }
 
 .login-bg::before {
@@ -71,4 +63,47 @@
   line-height: 30px;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.login-form-button {
+  width: 100%;
+  background-color: rgb(32, 203, 106);
+  border-color: transparent;
+  border-radius: 20px;
+}
+
+.login-form-button:hover, .login-form-button:focus {
+  background-color: rgb(32, 220, 106);
+  border-color: transparent;
+}
+
+.login-btn-2 {
+  text-align: center;
+}
+
+.login-btn-confirm-right {
+  width: 47%;
+  border-radius: 20px;
+  background-color: rgb(32, 203, 106);
+  border-color: transparent;
+}
+
+.login-btn-confirm-right:hover, .login-btn-confirm-right:focus  {
+  background-color: rgb(32, 220, 106);
+  border-color: transparent;
+}
+
+.login-btn-cancel-left {
+  width: 47%;
+  border-radius: 20px;
+  margin-right: 6%;
+}
+
+.login-btn-cancel-left:hover, .login-btn-cancel-left:focus {
+  color: rgb(32, 220, 106);
+  border-color: rgb(32, 220, 106);
+}
+
+.ant-input-lg:hover, .ant-input-lg:focus {
+  border-color: rgb(32, 220, 106);
 }

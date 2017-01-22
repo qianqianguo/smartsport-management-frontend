@@ -38,8 +38,8 @@ export default (store) => {
   return (
     <Route>
       <Route onEnter={requireLogin} path='/' name='home' breadcrumbName='首页' component={Main}>
-        {/* <IndexRoute name='home' component={Home}/> */}
-        <IndexRedirect to="/account" />
+        <IndexRoute name='home' component={Home}/>
+        {/* <IndexRedirect to="/account" /> */}
         <Route path='account' name='account' breadcrumbName='账号管理' component={Account}>
           <Route path='addAccount' name='account' breadcrumbName='添加账号' component={AddAccount}/>
           <Route path='editAccount' name='account' breadcrumbName='编辑账号' component={EditAccount}/>

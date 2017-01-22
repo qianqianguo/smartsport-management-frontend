@@ -77,8 +77,9 @@ class Login extends Component {
             rules: [
               {
                 required: true,
-                message: PASSWORD_TIP,
-                pattern: PASSWORD
+                message: '必输项',
+                // message: PASSWORD_TIP,
+                // pattern: PASSWORD
               }
             ]
           })(<Input type="password" placeholder="原密码"/>)}
@@ -110,14 +111,17 @@ class Login extends Component {
           })(<Input type="password" placeholder="确认新密码"/>)}
         </FormItem>
         <span>{`${this.props.changePwdState}`}</span>
-        <FormItem>
-          <Button onClick={this.cancelHandler.bind(this)}>
+        <FormItem
+            className={'login-btn-2'}
+        >
+          <Button
+            onClick={this.cancelHandler.bind(this)}
+            className={'login-btn-cancel-left'}
+          >
             取消
           </Button>
           <Button
-            style={{
-              marginLeft: 8
-            }}
+            className={'login-btn-confirm-right'}
             type="primary"
             htmlType="submit"
           >
@@ -131,6 +135,9 @@ class Login extends Component {
     return (
       <Form className="login-form" onSubmit={this.handleLogin.bind(this)}>
         <Helmet title='登陆'/>
+        <FormItem style={{textAlign: 'center'}}>
+          智慧体育企业运营管理后台
+        </FormItem>
         <FormItem>
           {getFieldDecorator('accountId', {
             rules: [
@@ -141,7 +148,7 @@ class Login extends Component {
                 // pattern: ACCOUNT
               }
             ]
-          })(<Input placeholder="邮箱、手机号"/>)}
+          })(<Input placeholder="账号"/>)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {

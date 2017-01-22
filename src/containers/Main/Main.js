@@ -8,6 +8,7 @@ import {logout} from 'redux/actions';
 const {SubMenu} = Menu;
 const {Header, Content, Footer, Sider} = Layout;
 import config from 'constants/config';
+require('./main.css');
 // 请求结束后再进页面, 加了才能热部署
 @asyncConnect([
   {
