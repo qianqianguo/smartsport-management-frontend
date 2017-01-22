@@ -64,7 +64,7 @@ export default class Account extends Component {
         key: 'name',
       }, {
         title: '角色',
-        dataIndex: 'role',
+        render: (text, record, index) =><span>{text.role ? text.role.name : ""}</span>,
         key: 'role',
       }, {
         title: '状态',
