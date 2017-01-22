@@ -6,3 +6,5 @@
  */
 
 export Test from './Test/Test';
+export AccountAdd from './ManageAccount/AccountAdd';
+export AccountEdit from './ManageAccount/AccountEdit';

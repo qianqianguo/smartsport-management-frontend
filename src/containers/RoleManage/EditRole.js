@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 import {getDataEditRoleJurisdiction} from 'redux/actions';
 import {Input, Checkbox, Collapse} from 'antd';
 
-let locationPermissions = new Array();
+// 全局的所有权限数组(用于处理传参)
+let localPermissions = new Array();
+
 // 绑定redux，包括方法和数据
 @connect(
   state => (
@@ -68,11 +70,9 @@ export default class AddRole extends Component {
       let arr = this.props.data.userPermissions;
       arr.map((item)=>{
         let permissions = item.permissions;
-        locationPermissions.concat(permissions);
-        console.log('啊大家哈高速', permissions);
-
+        localPermissions.concat(permissions);
       });
-      locationPermissions = arrPermissions;
+      localPermissions = arrPermissions;
       console.log('成功', arrPermissions);
     }
   }
@@ -111,7 +111,7 @@ export default class AddRole extends Component {
         </div>
         <div>
           <span style={{ float: 'left', color: 'black', fontSize: 16 }}>角色:</span>
-          <Input type="text" value={nameRole} placeholder="请输入角色名称..." onChange={this.getInputText.bind(this)} disabled={'true'} style={{marginTop: 10}}/>
+          <Input type="text" value={nameRole} onChange={this.getInputText.bind(this)} disabled={'true'} style={{marginTop: 10}}/>
         </div>
         <div style={{marginTop: 20}}>
           <span style={{color: 'black', fontSize: 16}}>权限:</span><br />

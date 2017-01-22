@@ -25,10 +25,10 @@ export function fetchCreateSaveAccount(obj) {
             data,
           });
       }).catch(err=>{
-          obj.fail(err);
           dispatch({
-            type: TEST_FETCH_FAIL
+            type: TEST_FETCH_FAIL,
           });
+          obj.fail(err);
       });
     }, 2000);
   };

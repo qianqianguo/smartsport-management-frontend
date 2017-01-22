@@ -4,7 +4,7 @@ import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'con
 let initialState = {
   count: 0,
   fetchState: '',
-  data: {},
+  data: {}
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action = {}) {
     case TEST_FETCH_FAIL:
       return {
         ...state,
-        fetchState: '请求失败'
+        fetchState: '请求失败',
       }
     default:
       return state;
