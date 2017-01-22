@@ -1,36 +1,67 @@
-body > a {
-  text-decoration: none;
+a {
+    text-decoration: none;
+    color: #333;
 }
-a:hover, a:focus{
-  text-decoration: none;
+
+a:focus,
+a:hover {
+    text-decoration: none;
+    color: #333;
 }
+
 .layout {
-  background-color: rgb(250,250,251);
+    background-color: rgb(250,250,251);
+    height: 100%;
 }
-.sider{
-  background-color: transparent;
+
+.sider {
+    background-color: rgb(241,241,241);
 }
+
 .siderTop {
-  background-color: rgb(241,241,241);
-  margin-bottom: 20px;
-  position: relative;
-  height: 180px;
+    position: relative;
+    height: 180px;
 }
-.siderMenu{
-  background-color: rgb(241,241,241);
+
+.siderMid {
+    height: 20px;
+    background: rgb(250,250,251);
 }
-.siderMenuItem{
-  background-color: rgb(241,241,241);
+
+.siderMenu {
+    background-color: rgb(241,241,241);
 }
+
+.siderMenuItem {
+    background-color: rgb(241,241,241);
+}
+
 .logo {
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 20px);
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 20px);
 }
+
 .dropdown {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 140px);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 140px);
+}
+
+.breadcrumbContainer {
+    height: 40px;
+    border-color: #fff;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.breadcrumbItem {
+    position: absolute;
+    bottom: 0;
+    transform: translate(20px, -2px);
+}
+.breadcrumb{
+  display: inline-block;
 }

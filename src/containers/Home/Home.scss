@@ -1,4 +1,29 @@
-.counterContainer {
+.homeContainer {
   text-align: center;
-  margin: 20px;
+  padding-top: 50%;
+  transform: translate(0, -50%);
+  color: #fff;
+  text-shadow:
+  1px 1px rgba(201, 224, 212,0.8),
+  2px 2px rgba(204, 227, 215,0.8),
+  3px 3px rgba(207, 230, 218,0.8),
+  4px 4px rgba(210, 233, 221,0.8),
+  5px 5px rgba(213, 236, 224,0.8),
+  6px 6px rgba(215, 239, 227,0.8),
+  7px 7px rgba(218, 242, 230,0.8),
+  8px 8px rgba(221, 245, 233,0.8),
+  9px 9px rgba(224, 248, 236,0.8),
+  10px 10px rgba(227, 251, 239,0.8),
+  11px 11px rgba(230, 253, 242,0.8),
+  12px 12px rgba(255, 255, 255,0.8),
+}
+.wellcome {
+  font-size: 40px;
+  font-weight: bolder;
+  color: rgb(32, 223, 106);
+}
+.content {
+  font-size: 20px;
+  font-weight: bolder;
+  color: rgb(32, 223, 106);
 }

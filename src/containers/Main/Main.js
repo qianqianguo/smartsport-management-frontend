@@ -32,15 +32,10 @@ export default class App extends Component {
   }
   // 面包屑配合react router
   itemRender(route, params, routes, paths) {
-    const last = routes.indexOf(route) === routes.length - 1;
-    return last
-      ? <span>{route.breadcrumbName}</span>
-      : <Link to={'/' + paths.join('/')}>{route.breadcrumbName}</Link>;
+    return <Link to={'/' + paths.join('/')}>{route.breadcrumbName}</Link>;
   }
   logoutHandler() {
-    logout({
-      succ: this.logoutSucc.bind(this)
-    });
+    logout({succ: this.logoutSucc.bind(this)});
   }
   logoutSucc() {
     this.context.router.push('/login');
@@ -67,7 +62,7 @@ export default class App extends Component {
     return (
       <Layout className={styles.layout}>
         <Helmet {...config.app.head}/>
-        <Sider width={200} className={styles.sider}>
+        <Sider width={150} className={styles.sider}>
           <div className={styles.siderTop}>
             <img src={img1} className={`${styles.logo} img-circle`}/>
             <div className={styles.dropdown}>
@@ -79,20 +74,17 @@ export default class App extends Component {
               </Dropdown>
             </div>
           </div>
-          <Menu
-            mode="inline"
-            className={styles.siderMenu}
-            defaultOpenKeys={['system']} // 默认展开的菜单组
-            selectedKeys={[this.props.routes[this.props.routes.length - 1].name]}
-          >
-            <SubMenu key="system" title={<span>系统管理</span>}>
-              <Menu.Item key="account" className={styles.siderMenuItem} >
+          <div className={styles.siderMid}/>
+          <Menu mode="inline" className={styles.siderMenu} defaultOpenKeys={['system']} // 默认展开的菜单组
+            selectedKeys={[this.props.routes[this.props.routes.length - 1].name]}>
+            <SubMenu key="system" title={< span > 系统管理 < /span>}>
+              <Menu.Item key="account" className={styles.siderMenuItem}>
                 <IndexLink to={'/account'}>
                   <span>账号管理</span>
                 </IndexLink>
               </Menu.Item>
               <Menu.Item key="role" className={styles.siderMenuItem}>
-                <div onClick={::this.clickHandler}>
+                <div onClick={:: this.clickHandler}>
                   <div >角色管理</div>
                 </div>
               </Menu.Item>
@@ -109,16 +101,11 @@ export default class App extends Component {
           </Menu>
         </Sider>
         <Content>
-          <div style={{
-            height: '40px',
-            'backgroundColor': '#fff',
-            position: 'relative'
-          }}>
-            <Breadcrumb style={{
-              position: 'absolute',
-              top: '50%',
-              transform: 'translate(20px,-50%)'
-            }} routes={this.props.routes} params={this.props.params} itemRender={this.itemRender}/>
+          <div className={styles.breadcrumbContainer}>
+            <div className={styles.breadcrumbItem}>
+              <span>目前所在位置：</span>
+              <Breadcrumb className={styles.breadcrumb} routes={this.props.routes} params={this.props.params} itemRender={this.itemRender}/>
+            </div>
           </div>
           <div style={{
             margin: '20px'

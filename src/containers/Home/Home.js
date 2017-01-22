@@ -34,16 +34,10 @@ export default class Home extends Component {
     const styles = require('./Home.scss'); // styles.counterContainer，scss的用法； css则引用进来就行了，className直接写样式名对应的字符串就行
     const {count, data, fetchState} = this.props; // 所有的数据，即state都是通过redux来管理， 操作state由action来负责
     return (
-      <div>
+      <div className={styles.homeContainer}>
         <Helmet title="首页"/>
-        <div className={styles.counterContainer}>
-          <h1>智慧体育管理后台</h1>
-          {/* <Test
-            count={count} // state由redux来管理
-            increment={this.props.increment} // 操作state 由action来操作
-          />
-          <button onClick={this.handler.bind(this)}>{`fetch data: ${JSON.stringify(data)}, state: ${fetchState}`}</button> */}
-        </div>
+        <div className={styles.wellcome}>欢迎登录</div>
+        <div className={styles.content}>智慧体育运营管理后台</div>
       </div>
     );
   }
