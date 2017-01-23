@@ -8,7 +8,6 @@ import * as AddAccountAct from './modules/ManageAccount/AddAccountAct';
 import * as EditAccountAct from './modules/ManageAccount/EditAccountAct';
 import * as AddRoleAct from './modules/ManageRole/AddRoleAct';
 import * as EditRoleAct from './modules/ManageRole/EditRoleAct';
-import * as FetchRoleAct from './modules/ManageRole/FetchRoleAct';
 
 
 export default {
@@ -21,5 +20,4 @@ export default {
   ...EditAccountAct,
   ...AddRoleAct,
   ...EditRoleAct,
-  ...FetchRoleAct,
 };

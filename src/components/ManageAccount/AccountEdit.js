@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet'; // 设置head
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation'
-import { addNumber, fetchEditSaveAccount, getRoleList } from 'redux/actions';
+import { fetchEditSaveAccount, getRoleList } from 'redux/actions';
 import React, {Component, PropTypes} from 'react';
 import { Form, Select, Input, Button, message } from 'antd';
 
@@ -65,10 +65,10 @@ const AccountEdit = Form.create()(React.createClass( {
   render() {
     console.log(this.props.location);
     const { getFieldDecorator, setFieldsValue } = this.props.form;
-    const { fetchState, data } = this.props;
+    const { dataRoleList } = this.props;
     let arrRole = new Array();
-    if (data && data.length > 0) {
-      arrRole = data;
+    if (dataRoleList && dataRoleList.length > 0) {
+      arrRole = dataRoleList;
     }
     return (
       <div>
@@ -106,7 +106,7 @@ const AccountEdit = Form.create()(React.createClass( {
             })(
               <Select placeholder="请选择角色...">
                 {
-                  arrRole.map((item)=><Option value={item._id}>{item.name}</Option>)
+                  arrRole.map((item, index)=><Option key={index} value={item._id}>{item.name}</Option>)
                 }
               </Select>
             )}

@@ -1,32 +1,22 @@
-import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes'
+import { EDITROLEJURISDICTION_GET_BEGIN, EDITROLEJURISDICTION_GET_SUCC, EDITROLEJURISDICTION_GET_FAIL } from 'constants/actionTypes'
 
 const initialState = {
-  data: {},
-  fetchState: '',
+  dataEditRoleJurisdiction: {},
 };
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case INCREMENT:
-      const {count} = state;
+    case EDITROLEJURISDICTION_GET_BEGIN:
       return {
         ...state,
-        count: count + 1
-      };
-    case TEST_FETCH_BEGIN:
-      return {
-        ...state,
-        fetchState: '发起请求',
       }
-    case TEST_FETCH_SUCC:
+    case EDITROLEJURISDICTION_GET_SUCC:
       return {
         ...state,
-        fetchState: '请求成功',
-        data: action.data,
+        dataEditRoleJurisdiction: action.dataEditRoleJurisdiction,
       }
-    case TEST_FETCH_FAIL:
+    case EDITROLEJURISDICTION_GET_FAIL:
       return {
         ...state,
-        fetchState: '请求失败',
       }
     default:
       return state;

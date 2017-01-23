@@ -10,8 +10,7 @@ let permissionsSelected = new Array();
 @connect(
   state => (
     {
-      data: state.editRole.data,
-      fetchState: state.editRole.fetchState,
+      dataEditRoleJurisdiction: state.editRole.dataEditRoleJurisdiction,
     }
   ), {getDataEditRoleJurisdiction}
 )
@@ -75,8 +74,8 @@ export default class AddRole extends Component {
   }
   render() {
     const styles = require('./AddRole.scss');
-    const { data, fetchState} = this.props;
-    console.log('请求到的编辑角色数据列表：', this.props.data);
+    const { dataEditRoleJurisdiction} = this.props;
+    console.log('请求到的编辑角色数据列表：', this.props.dataEditRoleJurisdiction);
     let nameRole = this.getNameRole();
     return (
       <div className={styles.counterContainer}>
@@ -86,13 +85,13 @@ export default class AddRole extends Component {
 
         <div style={{marginTop: 30}}>
           <span style={{ float: 'left', color: 'black', fontSize: 16 }}>角色:</span>
-          <Input type="text" value={nameRole} disabled={'true'} style={{marginTop: 10}}/>
+          <Input type="text" value={nameRole} disabled style={{marginTop: 10}}/>
         </div>
 
         <div style={{marginTop: 20}}>
           <span style={{color: 'black', fontSize: 16}}>权限:</span><br />
           {
-            this.getRoleModule(data)
+            this.getRoleModule(dataEditRoleJurisdiction)
           }
         </div>
       </div>

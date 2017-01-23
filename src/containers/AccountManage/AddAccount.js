@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
-import { addNumber, fetchCreateSaveAccount, getRoleList} from 'redux/actions';
+import { fetchCreateSaveAccount, getRoleList} from 'redux/actions';
 import React, {Component, PropTypes} from 'react';
-import { Modal, message } from 'antd';
+import { message } from 'antd';
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation';
 import { AccountAdd } from 'components';
 
@@ -9,10 +9,9 @@ import { AccountAdd } from 'components';
 @connect(
   state => (
     {
-      data: state.addAccount.data,
-      fetchState: state.addAccount.fetchState,
+      dataRoleList: state.addAccount.dataRoleList,
     }
-  ), {addNumber, fetchCreateSaveAccount, getRoleList}
+  ), {fetchCreateSaveAccount, getRoleList}
 )
 export default class AddAccount extends Component {
 

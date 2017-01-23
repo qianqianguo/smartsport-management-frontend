@@ -1,35 +1,21 @@
 
-import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes'
+import {ACCOUNT_EDIT_BEGIN, ACCOUNT_EDIT_SUCC, ACCOUNT_EDIT_FAIL} from 'constants/actionTypes'
 
-let initialState = {
-  count: 0,
-  fetchState: '',
-  data: {},
-}
+let initialState = {}
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case INCREMENT:
-      const {count} = state;
+    case ACCOUNT_EDIT_BEGIN:
       return {
         ...state,
-        count: count + 1
-      };
-    case TEST_FETCH_BEGIN:
-      return {
-        ...state,
-        fetchState: '发起请求'
       }
-    case TEST_FETCH_SUCC:
+    case ACCOUNT_EDIT_SUCC:
       return {
         ...state,
-        fetchState: '请求成功',
-        data: action.data,
       }
-    case TEST_FETCH_FAIL:
+    case ACCOUNT_EDIT_FAIL:
       return {
         ...state,
-        fetchState: '请求失败'
       }
     default:
       return state;

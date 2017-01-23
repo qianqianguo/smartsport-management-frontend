@@ -12,7 +12,6 @@ import addAccount from './ManageAccount/AddAccountReducer';
 import editAccount from './ManageAccount/EditAccountReducer';
 import addRole from './ManageRole/AddRoleReducer';
 import editRole from './ManageRole/EditRoleReducer';
-import fetchRole from './ManageRole/FetchRoleReducer';
 
 export default combineReducers({
   routing: routerReducer,

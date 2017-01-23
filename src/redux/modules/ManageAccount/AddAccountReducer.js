@@ -1,35 +1,37 @@
 
-import {INCREMENT, TEST_FETCH_BEGIN, TEST_FETCH_SUCC, TEST_FETCH_FAIL} from 'constants/actionTypes'
+import {ROLELIST_GET_BEGIN, ROLELIST_GET_SUCC, ROLELIST_GET_FAIL, ACCOUNT_ADD_BEGIN, ACCOUNT_ADD_SUCC, ACCOUNT_ADD_FAIL} from 'constants/actionTypes'
 
 let initialState = {
-  count: 0,
-  fetchState: '',
-  data: {}
+  dataRoleList: {}
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case INCREMENT:
-      const {count} = state;
+
+    case ROLELIST_GET_BEGIN:
       return {
         ...state,
-        count: count + 1
-      };
-    case TEST_FETCH_BEGIN:
-      return {
-        ...state,
-        fetchState: '发起请求'
       }
-    case TEST_FETCH_SUCC:
+    case ROLELIST_GET_SUCC:
       return {
         ...state,
-        fetchState: '请求成功',
-        data: action.data,
+        dataRoleList: action.dataRoleList,
       }
-    case TEST_FETCH_FAIL:
+    case ROLELIST_GET_FAIL:
       return {
         ...state,
-        fetchState: '请求失败',
+      }
+    case ACCOUNT_ADD_BEGIN:
+      return {
+        ...state,
+      }
+    case ACCOUNT_ADD_SUCC:
+      return {
+        ...state,
+      }
+    case ACCOUNT_ADD_FAIL:
+      return {
+        ...state,
       }
     default:
       return state;

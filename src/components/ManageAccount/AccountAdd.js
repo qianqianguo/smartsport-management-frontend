@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { addNumber, fetchCreateSaveAccount, getRoleList} from 'redux/actions';
+import {fetchCreateSaveAccount, getRoleList} from 'redux/actions';
 import { Form, Select, Input, Button } from 'antd';
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation';
 const FormItem = Form.Item;
@@ -47,10 +47,11 @@ const AccountAdd = Form.create()(React.createClass( {
 
   render() {
     const { getFieldDecorator, setFieldsValue } = this.props.form;
-    const {fetchState, data} = this.props;
+    const {dataRoleList} = this.props;
+    console.log('哈哈dataRoleList', dataRoleList);
     let arrRole = new Array();
-    if (data && data.length > 0) {
-      arrRole = data;
+    if (dataRoleList && dataRoleList.length > 0) {
+      arrRole = dataRoleList;
     }
     return (
       <div>
@@ -98,7 +99,7 @@ const AccountAdd = Form.create()(React.createClass( {
             })(
               <Select placeholder="请选择角色...">
                 {
-                  arrRole.map((item)=><Option value={item._id}>{item.name}</Option>)
+                  arrRole.map((item, index)=><Option key={index} value={item._id}>{item.name}</Option>)
                 }
               </Select>
             )}
