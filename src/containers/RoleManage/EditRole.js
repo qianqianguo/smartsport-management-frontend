@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {getDataEditRoleJurisdiction} from 'redux/actions';
 import {Input, Checkbox, Collapse} from 'antd';
 
-// 全局的所有权限数组(用于处理传参)
-let localPermissions = new Array();
+// 提交角色信息所需要传的权限参数数组
+let permissionsSelected = new Array();
 
 // 绑定redux，包括方法和数据
 @connect(
@@ -23,12 +23,8 @@ export default class AddRole extends Component {
     }
   }
 
-  getInputText(event) {
-    this.setState({nameRole: event.target.value});
-  }
-
   getRoleJurisdiction(permissions) {
-    return permissions.map((item)=>item.name);
+    return permissions.map((item)=>({label: item.name, value: JSON.stringify(item)}));
   }
 
   getRoleJurisdictionSelected(data) {
@@ -36,7 +32,7 @@ export default class AddRole extends Component {
       return [];
     }
     let arrNameJurisdiction = data.permissionResult.permissions;
-    return arrNameJurisdiction.map((item) => item.name);
+    return arrNameJurisdiction.map((item) => JSON.stringify(item));
   }
 
   getRoleModule(data) {
@@ -44,10 +40,10 @@ export default class AddRole extends Component {
         {
           data.userPermissions.map((item)=>(<Panel header={item.name} key={item.name} style={customPanelStyle}>
             <Checkbox onChange={onCheckboxChange}>全选</Checkbox>
-            <CheckboxGroup options={this.getRoleJurisdiction(item.permissions)} onChange={onChange}/>
+            <CheckboxGroup options={this.getRoleJurisdiction(item.permissions)} defaultValue={this.getRoleJurisdictionSelected(data)} onChange={onChange}/>
           </Panel>))
         }
-      </Collapse>) : (<div>获取权限模块失败，请刷新重试...</div>);
+      </Collapse>) : (<div>获取数据中...</div>);
   }
 
   getNameRole() {
@@ -60,48 +56,26 @@ export default class AddRole extends Component {
       id: JSON.parse(localStorage.getItem('smartsport/user'))['role'],
       idRole: this.props.location.state._id,
       succ: this.succ,
+      fail: this.fail,
     };
     this.props.getDataEditRoleJurisdiction(obj);
   }
 
-  componentDidMount() {
-    if (this.props.data.userPermissions) {
-      let arrPermissions = new Array();
-      let arr = this.props.data.userPermissions;
-      arr.map((item)=>{
-        let permissions = item.permissions;
-        localPermissions.concat(permissions);
-      });
-      localPermissions = arrPermissions;
-      console.log('成功', arrPermissions);
+  succ(data) {
+    console.log('我拿到的数据;', data);
+    if (data.permissionResult && data.permissionResult.permissions) {
+      let arrPermission = data.permissionResult.permissions;
+      permissionsSelected = arrPermission.map((item)=> JSON.stringify(item));
+      console.log('成功获取所有权限数组', permissionsSelected);
     }
   }
 
-  succ() {
-    console.log('成功', this.props.data);
-  }
-  // 权限选择激发
-  onChange(checkedList) {
-    this.setState({
-      checkedList,
-      indeterminate: !!checkedList.length && (checkedList.length < [].length),
-      checkAll: checkedList.length === [].length,
-    });
-  }
+  fail(err) {
 
-  // 全选激发
-  onCheckAllChange(event) {
-    console.log('全部激发：', event.target.value);
-    this.setState({
-      checkedList: event.target.checked ? [] : ['新增角色', '查看角色'],
-      indeterminate: false,
-      checkAll: event.target.checked,
-    });
   }
-
   render() {
     const styles = require('./AddRole.scss');
-    const {count, data, fetchState} = this.props;
+    const { data, fetchState} = this.props;
     console.log('请求到的编辑角色数据列表：', this.props.data);
     let nameRole = this.getNameRole();
     return (
@@ -109,10 +83,12 @@ export default class AddRole extends Component {
         <div>
           <span style={{fontSize: 18, borderWidth: 2}}>编辑角色</span>
         </div>
-        <div>
+
+        <div style={{marginTop: 30}}>
           <span style={{ float: 'left', color: 'black', fontSize: 16 }}>角色:</span>
-          <Input type="text" value={nameRole} onChange={this.getInputText.bind(this)} disabled={'true'} style={{marginTop: 10}}/>
+          <Input type="text" value={nameRole} disabled={'true'} style={{marginTop: 10}}/>
         </div>
+
         <div style={{marginTop: 20}}>
           <span style={{color: 'black', fontSize: 16}}>权限:</span><br />
           {
@@ -132,11 +108,11 @@ const customPanelStyle = {
   border: 0,
 };
 const CheckboxGroup = Checkbox.Group;
-let arrRole = [];
 
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
 }
+
 function onCheckboxChange(event) {
   console.log(`checked阿大使 = ${event.target.checked}`);
 }

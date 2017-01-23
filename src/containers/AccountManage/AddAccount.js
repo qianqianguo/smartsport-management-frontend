@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import { addNumber, fetchCreateSaveAccount, getRoleList} from 'redux/actions';
 import React, {Component, PropTypes} from 'react';
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation';
 import { AccountAdd } from 'components';
 
@@ -25,10 +25,7 @@ export default class AddAccount extends Component {
   }
 
   succ() {
-    Modal.success({
-      title: '提交成功',
-      content: '',
-    });
+    message.success('保存成功');
     this.context.router.push({
       pathname: '/account',
     });
@@ -39,11 +36,7 @@ export default class AddAccount extends Component {
   }
 
   fail(err) {
-    console.log('提交失败');
-    Modal.error({
-      title: '提交失败',
-      content: err,
-    });
+    message.error('保存失败:' + err);
   }
 
   render() {

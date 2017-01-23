@@ -30,7 +30,7 @@ export function fetchEditSaveAccount(obj) {
         dispatch({
         type: TEST_FETCH_FAIL
       });
-        obj.fail();
+        obj.fail(err);
       });
     }, 2000);
   };

@@ -20,11 +20,12 @@ export function getDataEditRoleJurisdiction(obj) {
           type: TEST_FETCH_SUCC,
           data,
         });
-        obj.succ();
+        obj.succ(data);
       }).catch(err=>{
         dispatch({
           type: TEST_FETCH_FAIL
         });
+        obj.fail(err);
       });
     }, 2000);
   };

@@ -65,7 +65,7 @@ const AccountAdd = Form.create()(React.createClass( {
             {getFieldDecorator('accountId', {
               rules: [{ required: true, message: ACCOUNT_TIP, pattern: ACCOUNT}],
             })(
-              <Input />
+              <Input placeholder={'请填写账号名称...'}/>
             )}
           </FormItem>
           <FormItem>
@@ -75,7 +75,7 @@ const AccountAdd = Form.create()(React.createClass( {
             {getFieldDecorator('password', {
               rules: [{ required: true, message: PASSWORD_TIP, pattern: PASSWORD}],
             })(
-              <Input type="password"/>
+              <Input type="password" placeholder={'请填写登录密码...'} />
             )}
           </FormItem>
           <FormItem>
@@ -85,7 +85,7 @@ const AccountAdd = Form.create()(React.createClass( {
             {getFieldDecorator('name', {
               rules: [{ required: true, message: '此选项为必填项，请填写！'}],
             })(
-              <Input placeholder="请输入姓名..."/>
+              <Input placeholder="请填写姓名..."/>
             )}
           </FormItem>
           <FormItem>
@@ -118,11 +118,11 @@ const AccountAdd = Form.create()(React.createClass( {
             )}
           </FormItem>
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-            <Button type="default" style={{marginRight: 40}} onClick={this.cancelAdd.bind(this)}>
+            <Button type="default" style={{marginRight: 40}} onClick={this.cancelAdd}>
               取消
             </Button>
             <Button type="primary" htmlType='submit'>
-              提交
+              保存
             </Button>
           </FormItem>
         </Form>

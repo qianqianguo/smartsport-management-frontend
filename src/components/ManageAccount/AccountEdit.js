@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'; // 设置head
 import {ACCOUNT, ACCOUNT_TIP, PASSWORD, PASSWORD_TIP} from 'utils/validation'
 import { addNumber, fetchEditSaveAccount, getRoleList } from 'redux/actions';
 import React, {Component, PropTypes} from 'react';
-import { Form, Select, Input, Button } from 'antd';
+import { Form, Select, Input, Button, message } from 'antd';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -28,9 +28,9 @@ const AccountEdit = Form.create()(React.createClass( {
       if (!err) {
         console.log('Received values of form: ', values);
         let receivedValues = {
-          name: values.name === this.props.location.state['name'] ? this.props.location.state['name'] : values.name,
-          role: values.role === this.props.location.state['role'] ? this.props.location.state['role'] : values.role,
-          status: parseInt(values.status) === this.props.location.state['status'] ? this.props.location.state['status'] : parseInt(values.status),
+          name: values.name,
+          role: values.role,
+          status: parseInt(values.status),
         };
         console.log('最终账号信息: ', receivedValues);
         let obj = {
@@ -40,10 +40,10 @@ const AccountEdit = Form.create()(React.createClass( {
           fail: this.fail,
         }
         // 如果用户没有更改信息，不用做请求直接返回账号列表
-        if (values.name === receivedValues.name &&
-          values.role === receivedValues.role &&
-          values.status === receivedValues.status) {
-          this.succ();
+        if (receivedValues.name === this.props.location.state['name'] &&
+          receivedValues.role === this.props.location.state.role._id &&
+          receivedValues.status === this.props.location.state['status']) {
+          message.warning('你没有做任何修改');
         } else {
           this.props.fetchEditSaveAccount(obj);
         }
@@ -83,7 +83,7 @@ const AccountEdit = Form.create()(React.createClass( {
             {getFieldDecorator('accountId', {
               rules: [{ required: true, message: ACCOUNT_TIP, pattern: ACCOUNT}],
             })(
-              <Input disabled = {true}/>
+              <Input disabled/>
             )}
           </FormItem>
           <FormItem>
@@ -93,7 +93,7 @@ const AccountEdit = Form.create()(React.createClass( {
             {getFieldDecorator('name', {
               rules: [{ required: true, message: '此选项为必填项，请填写！'}],
             })(
-              <Input placeholder="请输入姓名..."/>
+              <Input placeholder="请填写姓名..."/>
             )}
           </FormItem>
           <FormItem>
@@ -126,11 +126,11 @@ const AccountEdit = Form.create()(React.createClass( {
             )}
           </FormItem>
           <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-            <Button type="default" style={{marginRight: 40}} onClick={this.cancelEdit.bind(this)}>
+            <Button type="default" style={{marginRight: 40}} onClick={this.cancelEdit}>
               取消
             </Button>
             <Button type="primary" htmlType='submit'>
-              提交
+              保存
             </Button>
           </FormItem>
         </Form>
